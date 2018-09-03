@@ -1,0 +1,4 @@
+
+truck
+bench
+elephant
