@@ -16,6 +16,7 @@ submission/
 main
 libdarknet.*
 .fuse*
+.settings/
 
 # OS Generated #
 .DS_Store*
