@@ -549,20 +549,19 @@ int JPEGDecodeDecrypt::decodeDataStream() {
 #endif
 			}
 #endif
-			/*
+
 			ofstream file("zerocount.txt");
 			file << "x max: " << x_pos_max << '\t' << "y max: " << y_pos_max + 1 << endl;
 			int *count=new int[numMCU];
 			memset(count, 0, sizeof(int)*numMCU);
 			for (int i = 0; i < numMCU; i++) {
-			for (int j = 0; j < 64; j++) {
-			(!yDeQT[i][j])?count[i]++:false;
-			}
-			file << count[i] << '\t';
+				for (int j = 0; j < 64; j++) {
+					(!yDeQT[i][j])?count[i]++:false;
+				}
+				file << count[i] << '\t';
 			}
 			file.close();
 			delete[] count;
-			*/
 
 			int threadsNum = thread::hardware_concurrency() - 1;
 			vector<thread> th;

@@ -7,4 +7,4 @@
 //#define ENCRYPT_HUFF
 #define ENCRYPT
 #define BENCHMARK
-#define DETECT
+//#define DETECT

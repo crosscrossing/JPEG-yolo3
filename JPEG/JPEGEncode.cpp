@@ -836,6 +836,23 @@ void JPEGEncodeEncrypt::encrypt(SWORD(*yMcu)[64], SWORD(*cbMcu)[64], SWORD(*crMc
 	memcpy(mcu, yMcu, 64 * numMCU * sizeof(SWORD));
 	memcpy(mcu + numMCU, cbMcu, 64 * numMCU * sizeof(SWORD));
 	memcpy(mcu + 2 * numMCU, crMcu, 64 * numMCU * sizeof(SWORD));
+
+	//取出系数
+	ofstream ori("ori.txt");
+	ofstream oriAC("oriAC.txt");
+	SWORD *mcuPointer = mcu[0];
+	for (int i = 0; i < 3 * numMCU; i++) {
+		ori << *mcuPointer << '\t';
+		for (int i = 1; i < 64; i++) {
+			if (*(mcuPointer + i) != 0) {
+				oriAC << *(mcuPointer + i) << "00" << i << '\t';
+			}
+		}
+		mcuPointer += 64;
+	}
+	ori.close();
+	oriAC.close();
+
 	for (int round = 0; round < ROUND; round++) {
 		//block scrambling
 		HyperChaoticLvSystem lvBlockY(x, y, z, u);
@@ -874,6 +891,24 @@ void JPEGEncodeEncrypt::encrypt(SWORD(*yMcu)[64], SWORD(*cbMcu)[64], SWORD(*crMc
 	memcpy(yMcu, mcu, 64 * numMCU * sizeof(SWORD));
 	memcpy(cbMcu, mcu + numMCU, 64 * numMCU * sizeof(SWORD));
 	memcpy(crMcu, mcu + numMCU * 2, 64 * numMCU * sizeof(SWORD));
+
+	//取出系数
+	ofstream res("res.txt");
+	ofstream resAC("resAC.txt");
+	mcuPointer = mcu[0];
+	for (int i = 0; i < 3 * numMCU; i++) {
+		res << *mcuPointer << '\t';
+		for (int i = 1; i < 64; i++) {
+			if (*(mcuPointer + i) != 0) {
+				resAC << *(mcuPointer + i) << "00" << i << '\t';
+			}
+		}
+		mcuPointer += 64;
+	}
+	res.close();
+	resAC.close();
+
+
 	delete[] mcu;
 }
 /*
