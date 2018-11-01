@@ -1002,14 +1002,7 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 		//pred += scrambled;
 		dcPointer++;
 	}
-	/*//≤‚ ‘ ˝æ›
-	static char name[13] = "DCtest_a.txt";
-	ofstream fp(name);
-	for (int i = 0; i < numMCU; i++) {
-	fp << dc[i] << '\t';
-	}
-	fp.close();
-	name[7]++;*/
+
 	//–¥ªÿ
 	dcPointer = dc;
 	mcuPointer = mcu[0];
