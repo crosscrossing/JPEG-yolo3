@@ -165,6 +165,6 @@ int main(int argc, char *argv[]) {
 	}
 
 	testDC();
-	testAC();
+	testA                               C();
 	return 0;
 }
