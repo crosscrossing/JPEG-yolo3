@@ -18,8 +18,13 @@ libdarknet.*
 .fuse*
 .settings/
 *.cproject
+*.project
 testImage/
-
+zerocount.txt
+ori.txt
+oriAC.txt
+res.txt
+resAC.txt
 
 # OS Generated #
 .DS_Store*
