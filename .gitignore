@@ -17,6 +17,9 @@ main
 libdarknet.*
 .fuse*
 .settings/
+*.cproject
+testImage/
+
 
 # OS Generated #
 .DS_Store*
