@@ -551,7 +551,7 @@ int JPEGDecodeDecrypt::decodeDataStream() {
 #endif
 
 			ofstream file("zerocount.txt");
-			file << "x max: " << x_pos_max << '\t' << "y max: " << y_pos_max + 1 << endl;
+			file << "x max: " << x_pos_max << '\t' << "y max: " << y_pos_max << endl;
 			int *count=new int[numMCU];
 			memset(count, 0, sizeof(int)*numMCU);
 			for (int i = 0; i < numMCU; i++) {
