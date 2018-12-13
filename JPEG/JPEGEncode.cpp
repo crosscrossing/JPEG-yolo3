@@ -9,7 +9,7 @@ void JPEGEncode::encodeMain(string fileName, int width, int height, const BYTE *
 	if (!file) {
 		throw "JPG file failed to open.";
 	}
-	/*..........Á¿»¯ÇåÎú¶È:Ô½´óµÄÊıÖµÑ¹ËõÔ½´ó£¬·´Ö®¸üÇåÎúÑ¹ËõĞ¡.........*/
+	/*..........é‡åŒ–æ¸…æ™°åº¦:è¶Šå¤§çš„æ•°å€¼å‹ç¼©è¶Šå¤§ï¼Œåä¹‹æ›´æ¸…æ™°å‹ç¼©å°.........*/
 	int scaleFactor = 25;
 	ifstream scaleFactorFile("scale_factor.txt");
 	if (!file) {
@@ -70,7 +70,7 @@ void JPEGEncode::encode(int scalefactor) {
 	width = sof.width();
 	height = sof.height();
 	int x_pos, y_pos;
-	int x_remainder, y_remainder;//Ê£Óà¼¸¸öÏñËØ
+	int x_remainder, y_remainder;//å‰©ä½™å‡ ä¸ªåƒç´ 
 	int x_pos_max, y_pos_max;
 	BYTE(*rMCU)[64], (*gMCU)[64], (*bMCU)[64];
 	SWORD(*yResult)[64], (*cbResult)[64], (*crResult)[64];
@@ -79,7 +79,7 @@ void JPEGEncode::encode(int scalefactor) {
 	x_remainder = width & 7;
 	y_pos_max = (int)ceil((float)height / 8) - 1;
 	y_remainder = height & 7;
-	numMCU = (x_pos_max + 1)*(y_pos_max + 1);//mcu×ÜÊı
+	numMCU = (x_pos_max + 1)*(y_pos_max + 1);//mcuæ€»æ•°
 	rMCU = new BYTE[numMCU][64];
 	gMCU = new BYTE[numMCU][64];
 	bMCU = new BYTE[numMCU][64];
@@ -117,7 +117,7 @@ void JPEGEncode::encode(int scalefactor) {
 	int threadsNum = thread::hardware_concurrency() - 1;
 	vector<thread> th;
 	atomic<int> curMCU(0);
-	auto process = [&](/*int &curMCU*/) {//lambda±í´ïÊ½ &ÒıÓÃÍâ²¿±äÁ¿
+	auto process = [&](/*int &curMCU*/) {//lambdaè¡¨è¾¾å¼ &å¼•ç”¨å¤–éƒ¨å˜é‡
 		int num;
 		float yTempA[64];
 		float cbTempA[64];
@@ -163,7 +163,7 @@ void JPEGEncode::encode(int scalefactor) {
 	}
 	delete[] yResult;delete[] cbResult;delete[] crResult;
 
-	/*´¦Àí½áÎ²*/
+	/*å¤„ç†ç»“å°¾*/
 	if (bytePos < 7) {
 		if (byteNew == 0xff) {
 			file.write((char*)&byteNew, 1);
@@ -195,7 +195,7 @@ void JPEGEncodeEncrypt::encode(int scalefactor) {
 	width = sof.width();
 	height = sof.height();
 	int x_pos, y_pos;
-	int x_remainder, y_remainder;//Ê£Óà¼¸¸öÏñËØ
+	int x_remainder, y_remainder;//å‰©ä½™å‡ ä¸ªåƒç´ 
 	int x_pos_max, y_pos_max;
 	BYTE(*rMCU)[64], (*gMCU)[64], (*bMCU)[64];
 	SWORD(*yResult)[64], (*cbResult)[64], (*crResult)[64];
@@ -204,7 +204,7 @@ void JPEGEncodeEncrypt::encode(int scalefactor) {
 	x_remainder = width & 7;
 	y_pos_max = (int)ceil((float)height / 8) - 1;
 	y_remainder = height & 7;
-	numMCU = (x_pos_max + 1)*(y_pos_max + 1);//mcu×ÜÊı
+	numMCU = (x_pos_max + 1)*(y_pos_max + 1);//mcuæ€»æ•°
 	rMCU = new BYTE[numMCU][64];
 	gMCU = new BYTE[numMCU][64];
 	bMCU = new BYTE[numMCU][64];
@@ -242,7 +242,7 @@ void JPEGEncodeEncrypt::encode(int scalefactor) {
 	int threadsNum = thread::hardware_concurrency() - 1;
 	vector<thread> th;
 	atomic<int> curMCU(0);
-	auto process = [&](/*int &curMCU*/) {//lambda±í´ïÊ½ &ÒıÓÃÍâ²¿±äÁ¿
+	auto process = [&](/*int &curMCU*/) {//lambdaè¡¨è¾¾å¼ &å¼•ç”¨å¤–éƒ¨å˜é‡
 		int num;
 		float yTempA[64];
 		float cbTempA[64];
@@ -339,7 +339,7 @@ void JPEGEncodeEncrypt::encode(int scalefactor) {
 	}
 	delete[] yResult; delete[] cbResult; delete[] crResult;
 
-	/*´¦Àí½áÎ²*/
+	/*å¤„ç†ç»“å°¾*/
 	if (bytePos < 7) {
 		if (byteNew == 0xff) {
 			file.write((char*)&byteNew, 1);
@@ -437,7 +437,7 @@ int JPEGEncode::writeFileHeader() {
 	return 0;
 }
 int JPEGEncode::generateHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BYTE*huffValue, ENHUFF*ENHUFF) {
-	//Éú³É length table
+	//ç”Ÿæˆ length table
 	int htBitTableSum = dht.htBitTableSum();
 	int k = 0, i = 0, j = 1;
 	do {
@@ -449,7 +449,7 @@ int JPEGEncode::generateHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BY
 			i++; j = 1;
 		}
 	} while (k < htBitTableSum);
-	//Éú³É code table
+	//ç”Ÿæˆ code table
 	k = 0;
 	WORD code = 0;
 	WORD si = huffLength[0];
@@ -466,7 +466,7 @@ int JPEGEncode::generateHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BY
 			si++;
 		} while (huffLength[k] != si);
 	}
-	//ºÏ³ÉË÷Òı±í
+	//åˆæˆç´¢å¼•è¡¨
 	for (int i = 0; i < htBitTableSum; i++) {
 		WORD temp = huffValue[i];
 		ENHUFF[temp].length = huffLength[i];
@@ -482,16 +482,16 @@ void JPEGEncodeEncrypt::generateEncryptedHuffmanTable() {
 	generateEncryptedHuffmanTable(dht[3], cAcHuffLength, cAcHuffCode, cAcHuffVal, cAcEnHuff);
 }
 int JPEGEncodeEncrypt::generateEncryptedHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BYTE*huffValue, ENHUFF*ENHUFF) {
-	WORD sum = dht.htBitTableSum();//JPEGÖĞ code×ÜÊı=½Úµã×ÜÊı
+	WORD sum = dht.htBitTableSum();//JPEGä¸­ codeæ€»æ•°=èŠ‚ç‚¹æ€»æ•°
 	BYTE current_length;//1~16
-	BYTE current_length_sum;//µ±Ç°³¤¶ÈÓĞ¼¸¸öÖµ
-	WORD current_node = 1;//µ±Ç°ÓÃµ½µÚ¼¸¸ö½Úµã
-	WORD current_value_number = 0;//Ë³´Î¼ÇÂ¼µÚ¼¸¸öÖµ
+	BYTE current_length_sum;//å½“å‰é•¿åº¦æœ‰å‡ ä¸ªå€¼
+	WORD current_node = 1;//å½“å‰ç”¨åˆ°ç¬¬å‡ ä¸ªèŠ‚ç‚¹
+	WORD current_value_number = 0;//é¡ºæ¬¡è®°å½•ç¬¬å‡ ä¸ªå€¼
 	WORD next_length_node = 2;
-	Huffmantree*Huffman_Tree = new Huffmantree[sum + 1];//0²»ÓÃ
+	Huffmantree*Huffman_Tree = new Huffmantree[sum + 1];//0ä¸ç”¨
 
 	bool stopLoop = false;
-	//Éú³ÉÊ÷
+	//ç”Ÿæˆæ ‘
 	for (current_length = 1; current_length <= 16; current_length++) {
 		current_length_sum = dht.htBitTable[current_length - 1];
 		for (int i = next_length_node - current_node; i > 0; i--) {
@@ -520,12 +520,12 @@ int JPEGEncodeEncrypt::generateEncryptedHuffmanTable(DHT dht, BYTE*huffLength, W
 		}
 		if(stopLoop) break;
 	}
-	//¹ş·òÂümutate
+	//å“ˆå¤«æ›¼mutate
 	for (int i = 1; i <= sum; i++) {
 		BYTE byte = ((long long)logistic()*1.0e+14) % 256;
 		if(byte & 1) Huffman_Tree[i].mutate();
 	}
-	//Éú³Écode
+	//ç”Ÿæˆcode
 	for (int i = 1; i <= sum; i++) {
 		Huffman_Tree[i].lCode <<= 1;
 		Huffman_Tree[i].rCode <<= 1;
@@ -533,7 +533,7 @@ int JPEGEncodeEncrypt::generateEncryptedHuffmanTable(DHT dht, BYTE*huffLength, W
 		Huffman_Tree[i].lChild != 0 ? Huffman_Tree[Huffman_Tree[i].lChild].lCode = Huffman_Tree[Huffman_Tree[i].lChild].rCode = Huffman_Tree[i].lCode : false;
 		Huffman_Tree[i].rChild != 0 ? Huffman_Tree[Huffman_Tree[i].rChild].lCode = Huffman_Tree[Huffman_Tree[i].rChild].rCode = Huffman_Tree[i].rCode : false;
 	}
-	//ºÏ³ÉË÷Òı±í
+	//åˆæˆç´¢å¼•è¡¨
 	for (int i = 1; i <= sum; i++) {
 		if (Huffman_Tree[i].lLength != 0) {
 			WORD temp = Huffman_Tree[i].lValue;
@@ -565,7 +565,7 @@ void JPEGEncode::dct(float*mcu, float*dct) {
 }
 void JPEGEncode::zz(float*ZZ, float*result) {
 	for (int i = 0; i<64; i++)
-		result[zigzag[i]] = ZZ[i];//×¢ÒâÕı·´µÄÎÊÌâ£¬ÕâÀïÊÇÕıÏòzz±ä»»
+		result[zigzag[i]] = ZZ[i];//æ³¨æ„æ­£åçš„é—®é¢˜ï¼Œè¿™é‡Œæ˜¯æ­£å‘zzå˜æ¢
 }
 void JPEGEncode::set_quant_table(const BYTE *basicTable, int scalefactor, BYTE *newTable)// Set quantization table and zigzag reorder it
 {
@@ -589,10 +589,10 @@ void JPEGEncode::quantization(float*QT_data, SWORD*result, BYTE*QT_table) {
 }
 int JPEGEncode::writeDC(ENHUFF*enHuff, SWORD*afterQT, SWORD&pred) {
 	SWORD diff = afterQT[0] - pred;
-	BYTE digit;//´ı±àÂëÖµÎ»Êı
-	SWORD temp;//ÓÃÀ´ÅĞ¶ÏÎ»ÊıÊÇ¶àÉÙµÄÁÙÊ±±äÁ¿
-	WORD nagative_temp;//Èç¹ûÊÇ¸ºÊı½øĞĞµ÷Õû
-	SWORD offset;//µ±Ç°Ğ´µÄÎ»Êı
+	BYTE digit;//å¾…ç¼–ç å€¼ä½æ•°
+	SWORD temp;//ç”¨æ¥åˆ¤æ–­ä½æ•°æ˜¯å¤šå°‘çš„ä¸´æ—¶å˜é‡
+	WORD nagative_temp;//å¦‚æœæ˜¯è´Ÿæ•°è¿›è¡Œè°ƒæ•´
+	SWORD offset;//å½“å‰å†™çš„ä½æ•°
 	if (diff == 0) {
 		for (offset = enHuff[0].length - 1; offset >= 0; offset--) {
 			WORD i;
@@ -630,18 +630,18 @@ int JPEGEncode::writeDC(ENHUFF*enHuff, SWORD*afterQT, SWORD&pred) {
 }
 int JPEGEncode::writeAC(ENHUFF*ENHUFF, SWORD*afterQT) {
 	SWORD temp;
-	SWORD offset;//µ±Ç°µÄÎ»Êı
+	SWORD offset;//å½“å‰çš„ä½æ•°
 	BYTE digit;
-	//BYTE zero_run_length = 0;//Á¬0ÓÎ³Ì±àÂë
+	//BYTE zero_run_length = 0;//è¿0æ¸¸ç¨‹ç¼–ç 
 	BYTE startpos;
-	BYTE nrzeroes;//Á¬0ÊıÁ¿
+	BYTE nrzeroes;//è¿0æ•°é‡
 	BYTE end0pos;
-	for (end0pos = 63; (end0pos > 0) && (afterQT[end0pos] == 0); end0pos--);	//ÕÒµ½½áÎ²
+	for (end0pos = 63; (end0pos > 0) && (afterQT[end0pos] == 0); end0pos--);	//æ‰¾åˆ°ç»“å°¾
 	int i = 1;
 	while (i <= end0pos)
 	{
 		startpos = i;
-		for (; (afterQT[i] == 0) && (i <= end0pos); i++);//Ìø¹ı0
+		for (; (afterQT[i] == 0) && (i <= end0pos); i++);//è·³è¿‡0
 		nrzeroes = i - startpos;
 		if (nrzeroes >= 16) //ZRL
 		{
@@ -652,7 +652,7 @@ int JPEGEncode::writeAC(ENHUFF*ENHUFF, SWORD*afterQT) {
 					writeOneBit(i);
 				}
 			}
-			nrzeroes = nrzeroes % 16;//»¹Ê£¼¸Î»0
+			nrzeroes = nrzeroes % 16;//è¿˜å‰©å‡ ä½0
 		}
 //		nrzeroes * 16 + digit
 		for (digit = 0, temp = afterQT[i]; temp != 0; temp /= 2) {
@@ -681,7 +681,7 @@ int JPEGEncode::writeAC(ENHUFF*ENHUFF, SWORD*afterQT) {
 		i++;
 	}
 
-	if (end0pos != 63) {//Ğ´EOB
+	if (end0pos != 63) {//å†™EOB
 		for (offset = ENHUFF[0].length - 1; offset >= 0; offset--) {
 			WORD i;
 			i = ENHUFF[0].code & binaryMask[offset];
@@ -695,7 +695,7 @@ void JPEGEncode::writeOneBit(WORD w) {
 	bool bit;
 	if (w == 0) bit = false;
 	else bit = true;
-	if (bit) //ÖµµÄµ±Ç°Î»Îª1 (¶ş½øÖÆ)
+	if (bit) //å€¼çš„å½“å‰ä½ä¸º1 (äºŒè¿›åˆ¶)
 		byteNew |= binaryMask[bytePos];
 	bytePos--;
 
@@ -716,18 +716,18 @@ void JPEGEncode::writeOneBit(WORD w) {
 void JPEGEncode::showFileQtHt() {
 	int j = 0;
 	if (sof.numberOfColor != sos.numberOfColor) {
-		cout << "ÑÕÉ«·ÖÁ¿Ç°ºó²»Ò»ÖÂ£¡" << endl;
+		cout << "é¢œè‰²åˆ†é‡å‰åä¸ä¸€è‡´ï¼" << endl;
 	}
 	cout << "width:" << sof.width() << " height:" << sof.height() << endl;
 
-	cout << "ÑÕÉ«Êı£¨3¼´YCbCr£©:" << (WORD)sof.numberOfColor << endl;
+	cout << "é¢œè‰²æ•°ï¼ˆ3å³YCbCrï¼‰:" << (WORD)sof.numberOfColor << endl;
 	for (int i = 0; i < sof.numberOfColor; i++) {
-		cout << "ÑÕÉ«·ÖÁ¿ID:" << (WORD)sofColor[i].colorID << " Ë®Æ½²ÉÑùÒò×Ó" << (WORD)sofColor[i].horizontalSamplingCoefficient() << " ´¹Ö±²ÉÑùÒò×Ó" << (WORD)sofColor[i].verticalSamplingCoefficient() << endl;
-		cout << " Ê¹ÓÃµÄQTºÅ:" << (WORD)sofColor[i].qtUsed;
-		cout << " DCÊ¹ÓÃµÄHTºÅ:" << (WORD)sosColor[i].dcHtTableUsed() << " ACÊ¹ÓÃµÄHTºÅ:" << (WORD)sosColor[i].acHtTableUsed() << endl;
+		cout << "é¢œè‰²åˆ†é‡ID:" << (WORD)sofColor[i].colorID << " æ°´å¹³é‡‡æ ·å› å­" << (WORD)sofColor[i].horizontalSamplingCoefficient() << " å‚ç›´é‡‡æ ·å› å­" << (WORD)sofColor[i].verticalSamplingCoefficient() << endl;
+		cout << " ä½¿ç”¨çš„QTå·:" << (WORD)sofColor[i].qtUsed;
+		cout << " DCä½¿ç”¨çš„HTå·:" << (WORD)sosColor[i].dcHtTableUsed() << " ACä½¿ç”¨çš„HTå·:" << (WORD)sosColor[i].acHtTableUsed() << endl;
 	}
 #ifdef _VCRUNTIME_H
-	cout << "------------------ÁÙÊ±ÏÔÊ¾HT±íÈ¨Öµ--------------------" << endl;
+	cout << "------------------ä¸´æ—¶æ˜¾ç¤ºHTè¡¨æƒå€¼--------------------" << endl;
 
 	cout << "HTnumber:" << (WORD)dht[j].htNumber() << " htType(0=DC 1=AC):" << (WORD)dht[j].htType() << endl;
 	for (int i = 0; i < 16; i++) {
@@ -809,16 +809,16 @@ void JPEGEncode::showFileQtHt() {
 	}
 	cout << endl;
 #endif
-	cout << "------------------ÁÙÊ±ÏÔÊ¾QT±í-------------------------" << endl;
+	cout << "------------------ä¸´æ—¶æ˜¾ç¤ºQTè¡¨-------------------------" << endl;
 	j = 0;
-	cout << "QTnumber:" << (WORD)dqt[j].qtNumber() << " QT¾«¶È:" << (WORD)dqt[j].qtPrecision() << endl;
+	cout << "QTnumber:" << (WORD)dqt[j].qtNumber() << " QTç²¾åº¦:" << (WORD)dqt[j].qtPrecision() << endl;
 	for (int i = 0; i < 64 * (dqt[j].qtPrecision() + 1); i++) {
 		cout << dec << (WORD)yqt[i] << ' ';
 		if ((i + 1) % 8 == 0)cout << endl;
 	}
 	cout << endl;
 	j = 1;
-	cout << "QTnumber:" << (WORD)dqt[j].qtNumber() << " QT¾«¶È:" << (WORD)dqt[j].qtPrecision() << endl;
+	cout << "QTnumber:" << (WORD)dqt[j].qtNumber() << " QTç²¾åº¦:" << (WORD)dqt[j].qtPrecision() << endl;
 	for (int i = 0; i < 64 * (dqt[j].qtPrecision() + 1); i++) {
 		cout << dec << (WORD)cqt[i] << ' ';
 		if ((i + 1) % 8 == 0)cout << endl;
@@ -882,7 +882,7 @@ void JPEGEncodeEncrypt::roiEncrypt(const char* posFileName) {
 
 }
 void JPEGEncodeEncrypt::encryptComputeDiff(SWORD(*mcu)[64], int numMCU) {
-	//¼ÆËã²î·ÖÖµ
+	//è®¡ç®—å·®åˆ†å€¼
 	int pred = mcu[0][0];
 	for (int i = 1; i < numMCU; i++) {
 		int currentDCValue = mcu[i][0];
@@ -891,7 +891,7 @@ void JPEGEncodeEncrypt::encryptComputeDiff(SWORD(*mcu)[64], int numMCU) {
 	}
 }
 void JPEGEncodeEncrypt::encryptReComputeDiff(SWORD(*mcu)[64], int numMCU) {
-	//²î·ÖÖµ»¹Ô­
+	//å·®åˆ†å€¼è¿˜åŸ
 	int pred = mcu[0][0];
 	for (int i = 1; i < numMCU; i++) {
 		pred = mcu[i][0] + pred;
@@ -900,7 +900,7 @@ void JPEGEncodeEncrypt::encryptReComputeDiff(SWORD(*mcu)[64], int numMCU) {
 }
 */
 void JPEGEncodeEncrypt::encryptBlockScrambling(SWORD(*mcu)[64], int numMCU, ChaoticMap &chaoticMap) {
-	//¿éÖÃÂÒ
+	//å—ç½®ä¹±
 	int *keyStream = new int[numMCU];
 	int *keyStreamPointer = keyStream;
 	SWORD *mcuPointer = mcu[0];
@@ -919,7 +919,7 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 	clock_t time = clock();
 #endif
 	//DC scramble
-	//È¡³öDCÏµÊı
+	//å–å‡ºDCç³»æ•°
 	SWORD *dc = new SWORD[numMCU];
 	SWORD *dcPointer = dc;
 	SWORD *mcuPointer = mcu[0];
@@ -928,8 +928,8 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 		dcPointer++;
 		mcuPointer += 64;
 	}
-	//¼ÓÃÜ²¿·Ö
-	//ÖÃÂÒ
+	//åŠ å¯†éƒ¨åˆ†
+	//ç½®ä¹±
 	int *keyStream = new int[numMCU];
 	int *keyStreamPointer = keyStream;
 	dcPointer = dc;
@@ -943,18 +943,18 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 	}
 	delete[] keyStream;
 
-	//À©É¢
+	//æ‰©æ•£
 
 	//int pred = 0;
-	char lastBit = 0;//À©É¢³õÖµ
-	char lastNegative = 0;//Õı¸ºÀ©É¢³õÖµ
+	char lastBit = 0;//æ‰©æ•£åˆå€¼
+	char lastNegative = 0;//æ­£è´Ÿæ‰©æ•£åˆå€¼
 	dcPointer = dc;
 	for (int i = 0; i < numMCU; i++) {
 		if (*dcPointer == 0 || *dcPointer == -1024) {
 			dcPointer++;
 			continue;
 		}
-		//Ê×ÏÈÈ¡¾ø¶ÔÖµ
+		//é¦–å…ˆå–ç»å¯¹å€¼
 		SWORD absDC = abs(*dcPointer);
 		char negative = *dcPointer < 0 ? 1 : 0;
 		vector<char>dcBits;
@@ -963,7 +963,7 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 			dcBits.push_back(absDC & 1);
 			absDC >>= 1;
 		}
-		//Õı¸ººÅ´¦Àí
+		//æ­£è´Ÿå·å¤„ç†
 		char scrambledNegative = 0;
 		//	int scrambledMax = 0, scrambledMin = 0;
 		//	for (int i = dcBits.size(); i > 0; i--) {
@@ -978,7 +978,7 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 		scrambledNegative = lastNegative ^ negative ^ k;
 		lastNegative = scrambledNegative;
 		//	}
-		//½øĞĞDCÖµÀ©É¢
+		//è¿›è¡ŒDCå€¼æ‰©æ•£
 		char bit = lastBit;
 		vector<char>scrambledBits;
 		scrambledBits.reserve(12);
@@ -988,10 +988,10 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 			bit = bit ^ *iterator ^ k;
 			scrambledBits.push_back(bit);
 		}
-		scrambledBits.push_back(*iterator);//¸ÃÎ»¹Ì¶¨Îª1
+		scrambledBits.push_back(*iterator);//è¯¥ä½å›ºå®šä¸º1
 		lastBit = bit;
 
-		//Ğ´»Ø¡¢²âÊÔ
+		//å†™å›ã€æµ‹è¯•
 		SWORD scrambled = 0;
 		for (vector<char>::reverse_iterator iterator = scrambledBits.rbegin(); iterator != scrambledBits.rend(); ++iterator) {
 			scrambled <<= 1;
@@ -1003,7 +1003,7 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 		dcPointer++;
 	}
 
-	//Ğ´»Ø
+	//å†™å›
 	dcPointer = dc;
 	mcuPointer = mcu[0];
 	for (int i = 0; i < numMCU; i++) {
@@ -1018,33 +1018,33 @@ void JPEGEncodeEncrypt::encryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 #endif
 }
 void JPEGEncodeEncrypt::encryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permutation, ChaoticMap &substitution) {
-	//¶ÔACÏµÊı½øĞĞÄÚ²¿ÖÃÂÒ¡¢À©É¢
-	//mcuÖÃÂÒ
-	//mcuÄÚ²¿ÖÃÂÒ£º°´ÕÕ±àÂëÊ±RRRRSSSS+¸½¼ÓÖµµÄ×éºÏ
-	//·Ç0ÖµÀ©É¢£º²Î¿¼DCÀ©É¢
+	//å¯¹ACç³»æ•°è¿›è¡Œå†…éƒ¨ç½®ä¹±ã€æ‰©æ•£
+	//mcuç½®ä¹±
+	//mcuå†…éƒ¨ç½®ä¹±ï¼šæŒ‰ç…§ç¼–ç æ—¶RRRRSSSS+é™„åŠ å€¼çš„ç»„åˆ
+	//é0å€¼æ‰©æ•£ï¼šå‚è€ƒDCæ‰©æ•£
 #ifdef BENCHMARK
 	clock_t time = clock();
 #endif
-	WORD previous = 0;//À©É¢³õÖµ
-	char previousNegative = 0;//Õı¸ºÀ©É¢³õÖµ
+	WORD previous = 0;//æ‰©æ•£åˆå€¼
+	char previousNegative = 0;//æ­£è´Ÿæ‰©æ•£åˆå€¼
 	for (int j = 0; j < numMCU; j++) {
 		vector<PartData> mcuData;
 		mcuData.reserve(16);
 		PartData partData;
 		int zeroCount = 0;
 		bool hasZrl = false;
-		BYTE end0Pos;//×îºóÒ»¸ö·Ç0ACÏµÊıÎ»ÖÃ
-		for (end0Pos = 63; end0Pos > 0 && mcu[j][end0Pos] == 0; end0Pos--);	//ÕÒµ½½áÎ²
-		//·Ö×é
+		BYTE end0Pos;//æœ€åä¸€ä¸ªé0ACç³»æ•°ä½ç½®
+		for (end0Pos = 63; end0Pos > 0 && mcu[j][end0Pos] == 0; end0Pos--);	//æ‰¾åˆ°ç»“å°¾
+		//åˆ†ç»„
 		for (int i = 1; i <= end0Pos; i++) {
-			partData.data[zeroCount] = mcu[j][i];//¼ÇÂ¼Êı¾İ
+			partData.data[zeroCount] = mcu[j][i];//è®°å½•æ•°æ®
 			if (mcu[j][i] == 0) {
-				//Îª0ÏÈ¼ÆÊı£¬ÔÙÅĞ¶ÏZRL
+				//ä¸º0å…ˆè®¡æ•°ï¼Œå†åˆ¤æ–­ZRL
 				zeroCount++;
 				if (zeroCount == 16) {
 					partData.size = zeroCount;
-					mcuData.push_back(partData);//Ñ¹Õ»
-					partData.clear();//ÖØÖÃ
+					mcuData.push_back(partData);//å‹æ ˆ
+					partData.clear();//é‡ç½®
 					zeroCount = 0;
 					hasZrl = true;
 				}
@@ -1052,24 +1052,24 @@ void JPEGEncodeEncrypt::encryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 			else {
 				zeroCount++;
 				partData.size = zeroCount;
-				mcuData.push_back(partData);//Ñ¹Õ»
-				partData.clear();//ÖØÖÃ
+				mcuData.push_back(partData);//å‹æ ˆ
+				partData.clear();//é‡ç½®
 				zeroCount = 0;
 			}
 		}
 
-		//ÖÃÂÒ
+		//ç½®ä¹±
 		vector<PartData>::iterator iterator(mcuData.begin());
-		//È¥³ıZRL
+		//å»é™¤ZRL
 		vector<int> zrlPos;
 		if (hasZrl) {
 			int pos = 0;
 			while (iterator != mcuData.end()) {
 				if (iterator->isZRL()) {
-					//¼ÇÂ¼×ø±ê É¾³ıÊı¾İ
+					//è®°å½•åæ ‡ åˆ é™¤æ•°æ®
 					zrlPos.push_back(pos);
 					mcuData.erase(iterator);
-					//ÖØÖÃ
+					//é‡ç½®
 					pos = 0;
 					iterator = mcuData.begin();
 					continue;
@@ -1078,14 +1078,14 @@ void JPEGEncodeEncrypt::encryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 				++iterator;
 			}
 		}
-		//ÏÈÖÃÂÒ·ÇÁãacÕûÌå
+		//å…ˆç½®ä¹±éé›¶acæ•´ä½“
 		int keyStream;
 		int size = (int) mcuData.size();
 		iterator = mcuData.begin();
 		for (int i = 0; i < size; i++) {
 			long long temp = (long long) ((permutation.keySequence()) * 1.0e+14);
 			keyStream = temp
-					% (size - i);		//·ÇÁãacÏµÊı ¸ö
+					% (size - i);		//éé›¶acç³»æ•° ä¸ª
 			vector<PartData>::iterator itDst = iterator + keyStream;
 			partData = *iterator;
 			*iterator = *itDst;
@@ -1093,7 +1093,7 @@ void JPEGEncodeEncrypt::encryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 			++iterator;
 		}
 		if (hasZrl) {
-			//¼ÓÈëZRL
+			//åŠ å…¥ZRL
 			PartData zrl;
 			zrl.size = 16;
 			iterator = mcuData.begin();
@@ -1101,12 +1101,12 @@ void JPEGEncodeEncrypt::encryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 					riterator != zrlPos.rend(); ++riterator) {
 				mcuData.insert(mcuData.begin() + *riterator, zrl);
 			}
-			//ÖÃÂÒZRL
+			//ç½®ä¹±ZRL
 			iterator = mcuData.begin();
 			size = (int) mcuData.size() - 1;
 			for (int i = 0; i < size; i++) {
 				keyStream = ((long long) ((permutation.keySequence()) * 1.0e+14)
-						% (size - i));		//ËùÓĞ·ûºÅ-1 ¸ö
+						% (size - i));		//æ‰€æœ‰ç¬¦å·-1 ä¸ª
 				vector<PartData>::iterator itDst = iterator + keyStream;
 				partData = *iterator;
 				*iterator = *itDst;
@@ -1115,15 +1115,15 @@ void JPEGEncodeEncrypt::encryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 			}
 		}
 
-		//À©É¢
+		//æ‰©æ•£
 		vector<PartData>::iterator it(mcuData.begin());
 		for (it = mcuData.begin(); it != mcuData.end(); ++it) {
 			if (it->isZRL()) {
 				//	++it;
 				continue;
 			}
-			//ACÃ»ÓĞ0Êı¾İ
-			//Ê×ÏÈÈ¡¾ø¶ÔÖµ
+			//ACæ²¡æœ‰0æ•°æ®
+			//é¦–å…ˆå–ç»å¯¹å€¼
 			SWORD data = it->data[it->size - 1];
 			WORD absData = abs(data);
 			char negative = data < 0 ? 1 : 0;
@@ -1134,13 +1134,13 @@ void JPEGEncodeEncrypt::encryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 				mask <<= 1;
 				mask++;
 			}
-			//Õı¸ººÅ´¦Àí
+			//æ­£è´Ÿå·å¤„ç†
 			char scrambledNegative = 0;
 			char key = (char)((long long)(substitution.keySequence()*1.0e+14) & 1);
 			scrambledNegative = previousNegative ^ negative ^ key;
 			previousNegative = scrambledNegative;
-			//½øĞĞÀ©É¢
-			mask >>= 1;//Ê×Î»1²»¶¯£¬±£Î»Êı
+			//è¿›è¡Œæ‰©æ•£
+			mask >>= 1;//é¦–ä½1ä¸åŠ¨ï¼Œä¿ä½æ•°
 			if (digit > 2) {
 				int key = (long long)((substitution.keySequence())*1.0e+14) & mask;
 				//unsigned temp = ((previous ^ (long long)((substitution.keySequence())*1.0e+14)) & mask);
@@ -1155,11 +1155,11 @@ void JPEGEncodeEncrypt::encryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 				absData = (key ^ (absData & mask) ^ (previous & mask)) | (1 << (digit - 1));
 				previous = absData;
 			}
-			//Ğ´»Ø
+			//å†™å›
 			it->data[it->size - 1] = scrambledNegative ? -absData : absData;
 		}
 
-		//Ğ´»Ø
+		//å†™å›
 		int i = 1;
 		for (it = mcuData.begin(); it != mcuData.end(); ++it) {
 			for (int k = 0; k < it->size; k++) {

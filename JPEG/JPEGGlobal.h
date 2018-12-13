@@ -27,30 +27,30 @@ typedef int SDWORD;		//4byte signed
 
 class APP0 {
 public:
-	//	BYTE sign;//¶Î±ê¼Ç0xFF
-	//	BYTE type;//¶ÎÀàĞÍ0xE0
-	BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
-	BYTE jFIF4;//¡®J'
-	BYTE jFIF3;//¡®F'
-	BYTE jFIF2;//¡®I'
-	BYTE jFIF1;//¡®F'
+	//	BYTE sign;//æ®µæ ‡è®°0xFF
+	//	BYTE type;//æ®µç±»å‹0xE0
+	BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
+	BYTE jFIF4;//â€˜J'
+	BYTE jFIF3;//â€˜F'
+	BYTE jFIF2;//â€˜I'
+	BYTE jFIF1;//â€˜F'
 	BYTE jFIF0;//NULL
-	BYTE edition;//Ö÷°æ±¾ºÅ
-	BYTE subEdition;//´Î°æ±¾ºÅ
-	BYTE density;//ÃÜ¶Èµ¥Î»
-	BYTE xDensityH;//XÏñËØÃÜ¶È¸ß×Ö½Ú
-	BYTE xDensityL;//XÏñËØÃÜ¶ÈµÍ×Ö½Ú
-	BYTE yDensityH;//yÏñËØÃÜ¶È¸ß×Ö½Ú
-	BYTE yDensityL;//yÏñËØÃÜ¶ÈµÍ×Ö½Ú
-	BYTE xThumbnail;//ËõÂÊÍ¼XÏñËØÊı
-	BYTE yThumbnail;//ËõÂÔÍ¼yÏñËØÊı
-	WORD length() { return lengthH * 0x100 + lengthL; }//Çó¶Î³¤¶È
-														 //Çó³¤¶È½ö¹©³ÌĞò¼ì²é£¬²»ÓÃÓÚĞ´ÈëÎÄ¼ş
-	DWORD jFIF() { return jFIF4 * 0x1000000 + jFIF3 * 0x10000 + jFIF2 * 0x100 + jFIF1; }//Çó¡°jFIF¡±
-	WORD xDensity() { return xDensityH * 0x100 + xDensityL; }//ÇóXÏñËØÃÜ¶È
-	WORD yDensity() { return yDensityH * 0x100 + yDensityL; }//ÇóyÏñËØÃÜ¶È
-																  //´ó¶àÊıÎÄ¼şÃ»ÓĞËõÂÔÍ¼
+	BYTE edition;//ä¸»ç‰ˆæœ¬å·
+	BYTE subEdition;//æ¬¡ç‰ˆæœ¬å·
+	BYTE density;//å¯†åº¦å•ä½
+	BYTE xDensityH;//Xåƒç´ å¯†åº¦é«˜å­—èŠ‚
+	BYTE xDensityL;//Xåƒç´ å¯†åº¦ä½å­—èŠ‚
+	BYTE yDensityH;//yåƒç´ å¯†åº¦é«˜å­—èŠ‚
+	BYTE yDensityL;//yåƒç´ å¯†åº¦ä½å­—èŠ‚
+	BYTE xThumbnail;//ç¼©ç‡å›¾Xåƒç´ æ•°
+	BYTE yThumbnail;//ç¼©ç•¥å›¾yåƒç´ æ•°
+	WORD length() { return lengthH * 0x100 + lengthL; }//æ±‚æ®µé•¿åº¦
+														 //æ±‚é•¿åº¦ä»…ä¾›ç¨‹åºæ£€æŸ¥ï¼Œä¸ç”¨äºå†™å…¥æ–‡ä»¶
+	DWORD jFIF() { return jFIF4 * 0x1000000 + jFIF3 * 0x10000 + jFIF2 * 0x100 + jFIF1; }//æ±‚â€œjFIFâ€
+	WORD xDensity() { return xDensityH * 0x100 + xDensityL; }//æ±‚Xåƒç´ å¯†åº¦
+	WORD yDensity() { return yDensityH * 0x100 + yDensityL; }//æ±‚yåƒç´ å¯†åº¦
+																  //å¤§å¤šæ•°æ–‡ä»¶æ²¡æœ‰ç¼©ç•¥å›¾
 	APP0(BYTE lengthH, BYTE lengthL, BYTE jFIF4, BYTE jFIF3, BYTE jFIF2, BYTE jFIF1, BYTE jFIF0, BYTE edition, BYTE subEdition,
 			BYTE density, BYTE xDensityH, BYTE xDensityL, BYTE yDensityH, BYTE yDensityL, BYTE xThumbnail, BYTE yThumbnail){
 		this->lengthH = lengthH; this->lengthL = lengthL;
@@ -69,32 +69,32 @@ public:
 };
 class DQT {
 public:
-	//	BYTE sign;//¶Î±ê¼Ç0xFF
-	//	BYTE type;//¶ÎÀàĞÍ0xdb
-	//BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	//BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
-	//WORD length() { return lengthH * 0x100 + lengthL; }//Çó¶Î³¤¶È
-	BYTE qtInfo;//QTĞÅÏ¢ 0-3Î»QTºÅ 4-7Î»QT¾«¶È
-	BYTE qtNumber() { return qtInfo - 16 * qtPrecision(); }//µÍÎ»
-	BYTE qtPrecision() { return qtInfo / 16; }//¸ßÎ»
-	//	QT 64*QT¾«¶È
+	//	BYTE sign;//æ®µæ ‡è®°0xFF
+	//	BYTE type;//æ®µç±»å‹0xdb
+	//BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	//BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
+	//WORD length() { return lengthH * 0x100 + lengthL; }//æ±‚æ®µé•¿åº¦
+	BYTE qtInfo;//QTä¿¡æ¯ 0-3ä½QTå· 4-7ä½QTç²¾åº¦
+	BYTE qtNumber() { return qtInfo - 16 * qtPrecision(); }//ä½ä½
+	BYTE qtPrecision() { return qtInfo / 16; }//é«˜ä½
+	//	QT 64*QTç²¾åº¦
 	DQT(BYTE qtInfo){this->qtInfo = qtInfo;}
 	DQT(){/*this->qtInfo = 0;*/}
 };
 class SOF {
 public:
 	//0xffc0
-	BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
-	WORD length() { return lengthH * 0x100 + lengthL; }//Çó¶Î³¤¶È
+	BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
+	WORD length() { return lengthH * 0x100 + lengthL; }//æ±‚æ®µé•¿åº¦
 	BYTE samplePrecise;
 	BYTE heightH;
 	BYTE heightL;
-	WORD height() { return  heightH * 0x100 + heightL; }//Í¼Ïñ¸ß¶È
+	WORD height() { return  heightH * 0x100 + heightL; }//å›¾åƒé«˜åº¦
 	BYTE widthH;
 	BYTE widthL;
-	WORD width() { return  widthH * 0x100 + widthL; }//Í¼Ïñ¿í¶È
-	BYTE numberOfColor;//ÑÕÉ«·ÖÁ¿ÊıÁ¿
+	WORD width() { return  widthH * 0x100 + widthL; }//å›¾åƒå®½åº¦
+	BYTE numberOfColor;//é¢œè‰²åˆ†é‡æ•°é‡
 	//class SOFColour
 	SOF(BYTE lengthH, BYTE lengthL, BYTE samplePrecise, BYTE heightH, BYTE heightL, BYTE widthH, BYTE widthL, BYTE numberOfColor){
 		this->lengthH = lengthH; this->lengthL = lengthL; this->samplePrecise = samplePrecise;
@@ -105,11 +105,11 @@ public:
 		this->heightH = 0; this->heightL = 0; this->widthH = 0; this->widthL = 0; this->numberOfColor = 0;*/
 	}
 };
-class SOFColour {//ÑÕÉ«·ÖÁ¿ĞÅÏ¢
+class SOFColour {//é¢œè‰²åˆ†é‡ä¿¡æ¯
 public:
 	BYTE colorID;
-	BYTE samplingCoefficient;//¸ß4Î»£ºË®Æ½²ÉÑùÒò×Ó µÍ4Î»£º´¹Ö±²ÉÑùÒò×Ó
-	BYTE qtUsed;//µ±Ç°·ÖÁ¿Ê¹ÓÃµÄÁ¿»¯±íµÄID
+	BYTE samplingCoefficient;//é«˜4ä½ï¼šæ°´å¹³é‡‡æ ·å› å­ ä½4ä½ï¼šå‚ç›´é‡‡æ ·å› å­
+	BYTE qtUsed;//å½“å‰åˆ†é‡ä½¿ç”¨çš„é‡åŒ–è¡¨çš„ID
 	BYTE verticalSamplingCoefficient() { return samplingCoefficient & 0xff; }
 	BYTE horizontalSamplingCoefficient() { return samplingCoefficient >> 4; }
 	SOFColour(BYTE colorID, BYTE samplingCoefficient, BYTE qtUsed){
@@ -122,20 +122,20 @@ public:
 class DHT {
 public:
 	//0xffc4
-	//BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	//BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
-	//WORD length() { return lengthH * 0x100 + lengthL; }//Çó¶Î³¤¶È
-	BYTE htInfo;//htĞÅÏ¢ 0~3Î»htºÅ 4Î»htÀàĞÍ0=DC±í1=AC±í 5~7Î»0
-	BYTE htNumber() { return htInfo & 0xff; }//0~3Î»htºÅ
-	BYTE htType() { return htInfo >> 4; }//4Î»htÀàĞÍ0=DC±í1=AC±í
-	BYTE htBitTable[16];//htÎ»±í
+	//BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	//BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
+	//WORD length() { return lengthH * 0x100 + lengthL; }//æ±‚æ®µé•¿åº¦
+	BYTE htInfo;//htä¿¡æ¯ 0~3ä½htå· 4ä½htç±»å‹0=DCè¡¨1=ACè¡¨ 5~7ä½0
+	BYTE htNumber() { return htInfo & 0xff; }//0~3ä½htå·
+	BYTE htType() { return htInfo >> 4; }//4ä½htç±»å‹0=DCè¡¨1=ACè¡¨
+	BYTE htBitTable[16];//htä½è¡¨
 	WORD htBitTableSum() {
 		WORD temp = 0;
 		for (int i = 0; i < 16; i++)
 			temp += htBitTable[i];
 		return temp;
-	};//16¸öÊıÇóºÍ n<=256
-	//n htÖµ±í
+	};//16ä¸ªæ•°æ±‚å’Œ n<=256
+	//n htå€¼è¡¨
 	DHT(BYTE htInfo, const BYTE HT_BIT_TABLE[16]){
 		this->htInfo = htInfo;
 		for(int i=0;i<16;i++){
@@ -152,21 +152,21 @@ public:
 class SOS {
 public:
 	//0xffda
-	BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
-	WORD length() { return lengthH * 0x100 + lengthL; }//Çó¶Î³¤¶È
-	BYTE numberOfColor;//ÑÕÉ«·ÖÁ¿ÊıÁ¿
+	BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
+	WORD length() { return lengthH * 0x100 + lengthL; }//æ±‚æ®µé•¿åº¦
+	BYTE numberOfColor;//é¢œè‰²åˆ†é‡æ•°é‡
 	SOS(BYTE lengthH, BYTE lengthL, BYTE numberOfColor){
 		this->lengthH = lengthH; this->lengthL = lengthL; this->numberOfColor = numberOfColor;
 	}
 	SOS(){}
 };
-class SOSColour {//ÑÕÉ«·ÖÁ¿ĞÅÏ¢
+class SOSColour {//é¢œè‰²åˆ†é‡ä¿¡æ¯
 public:
 	BYTE colorID;
-	BYTE htTableUsed;// ¸ß4Î»£ºÖ±Á÷·ÖÁ¿Ê¹ÓÃµÄ¹ş·òÂüÊ÷±àºÅ  µÍ4Î»£º½»Á÷·ÖÁ¿Ê¹ÓÃµÄ¹ş·òÂüÊ÷±àºÅ
-	BYTE acHtTableUsed() { return htTableUsed & 0xff; }//µÍÎ»
-	BYTE dcHtTableUsed() { return htTableUsed >> 4; }//¸ßÎ»
+	BYTE htTableUsed;// é«˜4ä½ï¼šç›´æµåˆ†é‡ä½¿ç”¨çš„å“ˆå¤«æ›¼æ ‘ç¼–å·  ä½4ä½ï¼šäº¤æµåˆ†é‡ä½¿ç”¨çš„å“ˆå¤«æ›¼æ ‘ç¼–å·
+	BYTE acHtTableUsed() { return htTableUsed & 0xff; }//ä½ä½
+	BYTE dcHtTableUsed() { return htTableUsed >> 4; }//é«˜ä½
 	SOSColour(BYTE colorID, BYTE htTableUsed){
 		this->colorID = colorID; this->htTableUsed = htTableUsed;
 	}
@@ -174,18 +174,18 @@ public:
 };
 class DRI {
 public:
-	BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
-	WORD length() { return lengthH * 0x100 + lengthL; }//Çó¶Î³¤¶È
-	BYTE stepH;//¶Î³¤¶È¸ß×Ö½Ú
-	BYTE stepL;//¶Î³¤¶ÈµÍ×Ö½Ú
-	WORD step() { return stepH * 0x100 + stepL; }//¼ä¸ô³¤¶È
+	BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
+	WORD length() { return lengthH * 0x100 + lengthL; }//æ±‚æ®µé•¿åº¦
+	BYTE stepH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	BYTE stepL;//æ®µé•¿åº¦ä½å­—èŠ‚
+	WORD step() { return stepH * 0x100 + stepL; }//é—´éš”é•¿åº¦
 	DRI(BYTE lengthH, BYTE lengthL, BYTE stepH, BYTE stepL){
 		this->lengthH = lengthH; this->lengthL = lengthL;
 		this->stepH = stepH; this->stepL = stepL;
 	}
 	DRI(){}
-};//RST±íÊ¾½«¹ş·òÂü½âÂëÊı¾İÁ÷¸´Î»£¬DC´Ó0¿ªÊ¼¡£RST±ê¼Ç¹²ÓĞ8¸ö£ºRST0~RST7
+};//RSTè¡¨ç¤ºå°†å“ˆå¤«æ›¼è§£ç æ•°æ®æµå¤ä½ï¼ŒDCä»0å¼€å§‹ã€‚RSTæ ‡è®°å…±æœ‰8ä¸ªï¼šRST0~RST7
 #pragma pack(pop)
 
   /*
@@ -281,7 +281,7 @@ const BYTE zigzag[64] = {
 	20,22,33,38,46,51,55,60,
 	21,34,37,47,50,56,59,61,
 	35,36,48,49,57,58,62,63
-};//zig-zag±ä»»ÓÃ
+};//zig-zagå˜æ¢ç”¨
 
 const float aa = 0.5f*cosf(PI / 4), bb = 0.5f*cosf(PI / 16), cc = 0.5f*cosf(PI / 8), dd = 0.5f*cosf(3 * PI / 16);
 const float ee = 0.5f*cosf(5 * PI / 16), ff = 0.5f*cosf(3 * PI / 8), gg = 0.5f*cosf(7 * PI / 16);
@@ -294,9 +294,9 @@ const float A[64] = {
 	ee,-bb, gg, dd,-dd,-gg, bb,-ee,
 	ff,-cc, cc,-ff,-ff, cc,-cc, ff,
 	gg,-ee, dd,-bb, bb,-dd, ee,-gg
-};//dctÓÃ
+};//dctç”¨
 
-const WORD binaryMask[16] = { 1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768 };//Í¨¹ıÂß¼­¼ÆËã¶ÁÈ¡ÎÄ¼ş
+const WORD binaryMask[16] = { 1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768 };//é€šè¿‡é€»è¾‘è®¡ç®—è¯»å–æ–‡ä»¶
 
 class Huffmantree {
 public:
@@ -330,7 +330,7 @@ public:
 		for (i = 0; i < aTotalRow; i++) {
 			for (k = 0; k < aTotalColumnBTotalRow; k++) {
 				for (j = 0; j < bTotalColumn; j++) {
-					result[i * bTotalColumn + j] += a[i * aTotalColumnBTotalRow + k] * b[bTotalColumn * k + j];//ĞĞÊı+ÁĞÊı
+					result[i * bTotalColumn + j] += a[i * aTotalColumnBTotalRow + k] * b[bTotalColumn * k + j];//è¡Œæ•°+åˆ—æ•°
 				}
 			}
 		}
@@ -373,16 +373,16 @@ public:
 };
 class HyperChaoticLvSystem : public ChaoticMap {
 	/**
-	 * where a, b, c are the constants of L¨¹ system and d is a control parameter.
-	 * When a = 36, b = 3, c = 20, and -0.35 < d ¡Ü 1.30,
+	 * where a, b, c are the constants of LÃ¼ system and d is a control parameter.
+	 * When a = 36, b = 3, c = 20, and -0.35 < d â‰¤ 1.30,
 	 * the system exhibits a hyperchaotic behavior.
 	 */
 	int i;
 	double ele_val[4];
 	double lv_x, lv_y, lv_z, lv_u;
 	double lv_a, lv_b, lv_c, lv_d;
-	void hylvRungeKutta() {	// Áú¸ñ¿âËş·¨
-		double h = 0.005;   // ²½³¤
+	void hylvRungeKutta() {	// é¾™æ ¼åº“å¡”æ³•
+		double h = 0.005;   // æ­¥é•¿
 		double K1, L1, M1, K2, L2, M2, K3, L3, M3, K4, L4, M4;
 		double N1, N2, N3, N4;
 
@@ -431,7 +431,7 @@ public:
 			i = 0;
 		}
 		double data = ele_val[i++];
-		data = abs(data);   // Lv ÏµÍ³ÓĞ¸ºÖµ
+		data = abs(data);   // Lv ç³»ç»Ÿæœ‰è´Ÿå€¼
 		while (data >= 1) data /= 10;
 		return data;
 	}
@@ -455,7 +455,7 @@ public:
 	~HyperChaoticLvSystem(){}
 };
 #ifdef ENCRYPT
-struct PartData {//±ÜÃâstlÇ¶Ì×
+struct PartData {//é¿å…stlåµŒå¥—
 	SWORD data[16];
 	int size;//size 1~16
 	PartData(){

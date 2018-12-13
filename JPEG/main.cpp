@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 	using namespace std;
 	try {
 		if (argc != 3) {
-			throw "Usage: exe_file  bmp jpg"; // ÓÃ·¨: ¿ÉÖ´ĞĞÎÄ¼ş  Í¼Ïñ
+			throw "Usage: exe_file  bmp jpg"; // ç”¨æ³•: å¯æ‰§è¡Œæ–‡ä»¶  å›¾åƒ
 		}
 #ifdef DETECT
 		{

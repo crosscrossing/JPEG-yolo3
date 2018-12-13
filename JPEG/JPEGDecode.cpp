@@ -1,7 +1,7 @@
 #include"JPEGDecode.h"
 using namespace std;
 int JPEGDecode::decodeMain(string fileName) {
-//	preRead();//Ô¤¶ÁÈ¡ ²âÊÔÓÃ
+//	preRead();//é¢„è¯»å– æµ‹è¯•ç”¨
 	restartInterval = false;
 	yqt = NULL;
 	cqt = NULL;
@@ -20,13 +20,13 @@ int JPEGDecode::decodeMain(string fileName) {
 	this->fileName = fileName;
 	file.open(this->fileName.c_str(), ios::in | ios::binary);
 	if (!file) {
-		throw "JPGÎÄ¼ş´ò¿ªÊ§°Ü";
+		throw "JPGæ–‡ä»¶æ‰“å¼€å¤±è´¥";
 	}
 	readSegments();
 	switch (sequentialOrProgressive) {
 	case 0xc0:
 		decodeSequentialMain();
-		//	show(file);//¼ì²éÊÇ·ñÍê³É½âÂë
+		//	show(file);//æ£€æŸ¥æ˜¯å¦å®Œæˆè§£ç 
 		break;
 	case 0xc2:
 		decodeProgressiveMain(); break;
@@ -37,14 +37,14 @@ int JPEGDecode::decodeMain(string fileName) {
 }
 int JPEGDecode::decodeSequentialMain() {
 	generateHuffmanTable();
-	//	showFileQtHt();//½öÖ§³Ö·Ç¼ÓÃÜ//ÁÙÊ±ÏÔÊ¾ÎÄ¼şÓÃ
+	//	showFileQtHt();//ä»…æ”¯æŒéåŠ å¯†//ä¸´æ—¶æ˜¾ç¤ºæ–‡ä»¶ç”¨
 	decodeDataStream();
 	return 0;
 }
 int JPEGDecodeDecrypt::decodeSequentialMain() {
 #ifndef ENCRYPT_HUFF
 	generateHuffmanTable();
-	//	showFileQtHt();//½öÖ§³Ö·Ç¼ÓÃÜ//ÁÙÊ±ÏÔÊ¾ÎÄ¼şÓÃ
+	//	showFileQtHt();//ä»…æ”¯æŒéåŠ å¯†//ä¸´æ—¶æ˜¾ç¤ºæ–‡ä»¶ç”¨
 	decodeDataStream();
 #else
 	mu = 4.0;
@@ -80,7 +80,7 @@ int JPEGDecode::decodeDataStream() {
 	case 17: {
 		x_pos_max = (int)ceil((float)width / 8);
 		y_pos_max = (int)ceil((float)height / 8);
-		numMCU = (x_pos_max)*(y_pos_max);//mcu×ÜÊı
+		numMCU = (x_pos_max)*(y_pos_max);//mcuæ€»æ•°
 		if (sof.numberOfColor == 3) {
 			yDeQT = new SWORD[numMCU][64];
 			cbDeQT = new SWORD[numMCU][64];
@@ -181,13 +181,13 @@ int JPEGDecode::decodeDataStream() {
 	case 34: {
 		x_pos_max = (int)ceil((float)width / 8);
 		y_pos_max = (int)ceil((float)height / 8);
-		numMCU = (x_pos_max)*(y_pos_max);//mcu×ÜÊı
+		numMCU = (x_pos_max)*(y_pos_max);//mcuæ€»æ•°
 		rMCU = new BYTE[numMCU][64];
 		gMCU = new BYTE[numMCU][64];
 		bMCU = new BYTE[numMCU][64];
 		x_pos_max = (int)ceil((float)width / 16);
 		y_pos_max = (int)ceil((float)height / 16);
-		numMCU = (x_pos_max)*(y_pos_max);//Êµ¼Ê·Ö¿é×ÜÊı
+		numMCU = (x_pos_max)*(y_pos_max);//å®é™…åˆ†å—æ€»æ•°
 		yDeQT = new SWORD[numMCU * 4][64];
 		cbDeQT = new SWORD[numMCU][64];
 		crDeQT = new SWORD[numMCU][64];
@@ -293,7 +293,7 @@ int JPEGDecode::decodeDataStream() {
 	case 0x12: {
 		x_pos_max = (int)ceil((float)width / 8);
 		y_pos_max = (int)ceil((float)height / 8);
-		numMCU = (x_pos_max)*(y_pos_max);//mcu×ÜÊı
+		numMCU = (x_pos_max)*(y_pos_max);//mcuæ€»æ•°
 		rMCU = new BYTE[numMCU][64];
 		gMCU = new BYTE[numMCU][64];
 		bMCU = new BYTE[numMCU][64];
@@ -305,7 +305,7 @@ int JPEGDecode::decodeDataStream() {
 			x_pos_max = (int)ceil((float)width / 8);
 			y_pos_max = (int)ceil((float)height / 16);
 		}
-		numMCU = (x_pos_max)*(y_pos_max);//Êµ¼Ê·Ö¿é×ÜÊı
+		numMCU = (x_pos_max)*(y_pos_max);//å®é™…åˆ†å—æ€»æ•°
 		yDeQT = new SWORD[numMCU * 2][64];
 		cbDeQT = new SWORD[numMCU][64];
 		crDeQT = new SWORD[numMCU][64];
@@ -421,7 +421,7 @@ int JPEGDecode::decodeDataStream() {
 	y_pos_max = (int)ceil((float)height / 8);
 	//numMCU = (x_pos_max)*(y_pos_max);
 	int MCU_count = 0;
-	int x_remainder, y_remainder;//Ê£Óà¼¸¸öÏñËØ
+	int x_remainder, y_remainder;//å‰©ä½™å‡ ä¸ªåƒç´ 
 	x_remainder = width & 7;
 	y_remainder = height & 7;
 	for (int y_pos = 0; y_pos < y_pos_max; y_pos++) {
@@ -483,7 +483,7 @@ int JPEGDecodeDecrypt::decodeDataStream() {
 	case 17: {
 		x_pos_max = (int)ceil((float)width / 8);
 		y_pos_max = (int)ceil((float)height / 8);
-		numMCU = (x_pos_max)*(y_pos_max);//mcu×ÜÊı
+		numMCU = (x_pos_max)*(y_pos_max);//mcuæ€»æ•°
 		rMCU = new BYTE[numMCU][64];
 		gMCU = new BYTE[numMCU][64];
 		bMCU = new BYTE[numMCU][64];
@@ -596,7 +596,7 @@ int JPEGDecodeDecrypt::decodeDataStream() {
 	}//end case 17
 	}
 	int MCU_count = 0;
-	int x_remainder, y_remainder;//Ê£Óà¼¸¸öÏñËØ
+	int x_remainder, y_remainder;//å‰©ä½™å‡ ä¸ªåƒç´ 
 	x_remainder = width & 7;
 	y_remainder = height & 7;
 	for (int y_pos = 0; y_pos < y_pos_max; y_pos++) {
@@ -653,7 +653,7 @@ int JPEGDecodeDecrypt::decodeCipherStream() {
 	case 17: {
 		x_pos_max = (int)ceil((float)width / 8) - 1;
 		y_pos_max = (int)ceil((float)height / 8) - 1;
-		numMCU = (x_pos_max + 1)*(y_pos_max + 1);//mcu×ÜÊı
+		numMCU = (x_pos_max + 1)*(y_pos_max + 1);//mcuæ€»æ•°
 		if (sof.numberOfColor == 3) {
 			yDeQT = new SWORD[numMCU][64];
 			cbDeQT = new SWORD[numMCU][64];
@@ -754,7 +754,7 @@ int JPEGDecodeDecrypt::decodeCipherStream() {
 	}
 	}
 	int MCU_count = 0;
-	int x_remainder, y_remainder;//Ê£Óà¼¸¸öÏñËØ
+	int x_remainder, y_remainder;//å‰©ä½™å‡ ä¸ªåƒç´ 
 	x_remainder = width & 7;
 	y_remainder = height & 7;
 	for (y_pos = 0; y_pos <= y_pos_max; y_pos++) {
@@ -851,13 +851,13 @@ void JPEGDecode::dequantization(SWORD*deQT,SWORD*result,BYTE*QT) {
 }
 void JPEGDecode::reverseZZ(SWORD*ZZ, SWORD*result) {
 	for (int i = 0; i < 64; i++)
-		result[i] = ZZ[zigzag[i]];//×¢Òâ´Ë´¦µÄzig-zagÕı·´ÎÊÌâ£¬ÕâÀïÊÇ·´zz
+		result[i] = ZZ[zigzag[i]];//æ³¨æ„æ­¤å¤„çš„zig-zagæ­£åé—®é¢˜ï¼Œè¿™é‡Œæ˜¯åzz
 }
 int JPEGDecode::readDC(DEHUFF*deHuff, SWORD&diff, SWORD&pred, SWORD*result) {
 	WORD code;
-	BYTE offset;//µ±Ç°µÄÎ»Êı
+	BYTE offset;//å½“å‰çš„ä½æ•°
 	BYTE value;
-	//²éÕÒ¹ş·òÂü±í
+	//æŸ¥æ‰¾å“ˆå¤«æ›¼è¡¨
 	for (offset = 1, code = 0; 1; offset++) {
 		code += readOneBit();
 		if (deHuff[code].length == offset) {
@@ -873,7 +873,7 @@ int JPEGDecode::readDC(DEHUFF*deHuff, SWORD&diff, SWORD&pred, SWORD*result) {
 				diff <<= 1;
 				diff += readOneBit();
 			}
-		}//ÕıÊı
+		}//æ­£æ•°
 		else {
 			diff = 1;
 			for (char i = 0; i < (value - 1); i++) {
@@ -881,7 +881,7 @@ int JPEGDecode::readDC(DEHUFF*deHuff, SWORD&diff, SWORD&pred, SWORD*result) {
 				if (!readOneBit())diff++;
 			}
 			diff = -diff;
-		}//¸ºÊı
+		}//è´Ÿæ•°
 	}
 	else diff = 0;
 	result[0] = diff + pred;
@@ -890,14 +890,14 @@ int JPEGDecode::readDC(DEHUFF*deHuff, SWORD&diff, SWORD&pred, SWORD*result) {
 }
 int JPEGDecode::readAC(DEHUFF*DEHUFF, SWORD&diff, SWORD*result) {
 	WORD code;
-	BYTE offset;//µ±Ç°µÄÎ»Êı
+	BYTE offset;//å½“å‰çš„ä½æ•°
 	BYTE value;
-	SWORD digit = 0;//acÎ»Êı
-	char zero_run_length = 0;//Á¬0ÓÎ³Ì±àÂë
-	SWORD ac_value = 0;//½á¹û
+	SWORD digit = 0;//acä½æ•°
+	char zero_run_length = 0;//è¿0æ¸¸ç¨‹ç¼–ç 
+	SWORD ac_value = 0;//ç»“æœ
 
 	for (unsigned char k = 1; k <= 63; k++) {
-		//²éÕÒ¹ş·òÂü±í
+		//æŸ¥æ‰¾å“ˆå¤«æ›¼è¡¨
 		for (offset = 1, code = 0; 1; offset++) {
 			code += readOneBit();
 			if (DEHUFF[code].length == offset) {
@@ -950,9 +950,9 @@ int JPEGDecode::readAC(DEHUFF*DEHUFF, SWORD&diff, SWORD*result) {
 #ifdef ENCRYPT_HUFF
 int JPEGDecodeDecrypt::readDcCipher(DEHUFFEncrypted*dehuffEncrypt, SWORD&diff, SWORD&pred, SWORD*result) {
 	WORD code;
-	BYTE offset;//µ±Ç°µÄÎ»Êı
+	BYTE offset;//å½“å‰çš„ä½æ•°
 	BYTE value;
-	//²éÕÒ¹ş·òÂü±í
+	//æŸ¥æ‰¾å“ˆå¤«æ›¼è¡¨
 	for (offset = 1, code = 0; 1; offset++) {
 		code += readOneBit();
 		bool cmd = false;
@@ -973,7 +973,7 @@ int JPEGDecodeDecrypt::readDcCipher(DEHUFFEncrypted*dehuffEncrypt, SWORD&diff, S
 				diff <<= 1;
 				diff += readOneBit();
 			}
-		}//ÕıÊı
+		}//æ­£æ•°
 		else {
 			diff = 1;
 			for (char i = 0; i < (value - 1); i++) {
@@ -981,7 +981,7 @@ int JPEGDecodeDecrypt::readDcCipher(DEHUFFEncrypted*dehuffEncrypt, SWORD&diff, S
 				if (!readOneBit())diff++;
 			}
 			diff = -diff;
-		}//¸ºÊı
+		}//è´Ÿæ•°
 	}
 	else diff = 0;
 	result[0] = diff + pred;
@@ -990,14 +990,14 @@ int JPEGDecodeDecrypt::readDcCipher(DEHUFFEncrypted*dehuffEncrypt, SWORD&diff, S
 }
 int JPEGDecodeDecrypt::readAcCipher(DEHUFFEncrypted*dehuffEncrypt, SWORD&diff, SWORD*result) {
 	WORD code;
-	BYTE offset;//µ±Ç°µÄÎ»Êı
+	BYTE offset;//å½“å‰çš„ä½æ•°
 	BYTE value;
-	SWORD digit = 0;//acÎ»Êı
-	char zero_run_length = 0;//Á¬0ÓÎ³Ì±àÂë
-	SWORD ac_value = 0;//½á¹û
+	SWORD digit = 0;//acä½æ•°
+	char zero_run_length = 0;//è¿0æ¸¸ç¨‹ç¼–ç 
+	SWORD ac_value = 0;//ç»“æœ
 
 	for (unsigned char k = 1; k <= 63; k++) {
-		//²éÕÒ¹ş·òÂü±í
+		//æŸ¥æ‰¾å“ˆå¤«æ›¼è¡¨
 		for (offset = 1, code = 0; 1; offset++) {
 			bool cmd = false;
 			code += readOneBit();
@@ -1076,7 +1076,7 @@ BYTE JPEGDecode::readOneBit() {
 			break;
 		}
 	}
-	if (byteNew & binaryMask[bytePos]) value = 1;//ÖµµÄµ±Ç°Î»Îª1 (¶ş½øÖÆ)
+	if (byteNew & binaryMask[bytePos]) value = 1;//å€¼çš„å½“å‰ä½ä¸º1 (äºŒè¿›åˆ¶)
 	else value = 0;
 	bytePos--;
 	if (bytePos < 0) {
@@ -1088,16 +1088,16 @@ BYTE JPEGDecode::readOneBit() {
 }
 #ifdef ENCRYPT_HUFF
 int JPEGDecodeDecrypt::generateEncryptedHuffmanTable(DHT dht, BYTE * huffLength, WORD * huffCode, BYTE * huffValue, DEHUFFEncrypted * dehuffEncrypt) {
-	WORD sum = dht.htBitTableSum();//JPEGÖĞ code×ÜÊı=½Úµã×ÜÊı
+	WORD sum = dht.htBitTableSum();//JPEGä¸­ codeæ€»æ•°=èŠ‚ç‚¹æ€»æ•°
 	BYTE current_length;//1~16
-	BYTE current_length_sum;//µ±Ç°³¤¶ÈÓĞ¼¸¸öÖµ
-	WORD current_node = 1;//µ±Ç°ÓÃµ½µÚ¼¸¸ö½Úµã
-	WORD current_value_number = 0;//Ë³´Î¼ÇÂ¼µÚ¼¸¸öÖµ
+	BYTE current_length_sum;//å½“å‰é•¿åº¦æœ‰å‡ ä¸ªå€¼
+	WORD current_node = 1;//å½“å‰ç”¨åˆ°ç¬¬å‡ ä¸ªèŠ‚ç‚¹
+	WORD current_value_number = 0;//é¡ºæ¬¡è®°å½•ç¬¬å‡ ä¸ªå€¼
 	WORD next_length_node = 2;
-	Huffmantree*Huffman_Tree = new Huffmantree[sum + 1];//0²»ÓÃ
+	Huffmantree*Huffman_Tree = new Huffmantree[sum + 1];//0ä¸ç”¨
 
 	bool stopLoop = false;
-	//Éú³ÉÊ÷
+	//ç”Ÿæˆæ ‘
 	for (current_length = 1; current_length <= 16; current_length++) {
 		current_length_sum = dht.htBitTable[current_length - 1];
 		for (int i = next_length_node - current_node; i > 0; i--) {
@@ -1126,12 +1126,12 @@ int JPEGDecodeDecrypt::generateEncryptedHuffmanTable(DHT dht, BYTE * huffLength,
 		}
 		if (stopLoop) break;
 	}
-	//¹ş·òÂümutate
+	//å“ˆå¤«æ›¼mutate
 	for (int i = 1; i <= sum; i++) {
 		BYTE byte = ((long long)logistic()*1.0e+14) % 256;
 		if (byte & 1) Huffman_Tree[i].mutate();
 	}
-	//Éú³Écode
+	//ç”Ÿæˆcode
 	for (int i = 1; i <= sum; i++) {
 		Huffman_Tree[i].lCode <<= 1;
 		Huffman_Tree[i].rCode <<= 1;
@@ -1139,7 +1139,7 @@ int JPEGDecodeDecrypt::generateEncryptedHuffmanTable(DHT dht, BYTE * huffLength,
 		Huffman_Tree[i].lChild != 0 ? Huffman_Tree[Huffman_Tree[i].lChild].lCode = Huffman_Tree[Huffman_Tree[i].lChild].rCode = Huffman_Tree[i].lCode : false;
 		Huffman_Tree[i].rChild != 0 ? Huffman_Tree[Huffman_Tree[i].rChild].lCode = Huffman_Tree[Huffman_Tree[i].rChild].rCode = Huffman_Tree[i].rCode : false;
 	}
-	//ºÏ³ÉË÷Òı±í
+	//åˆæˆç´¢å¼•è¡¨
 	for (int i = 1; i <= sum; i++) {
 		if (Huffman_Tree[i].lLength != 0) {
 			WORD temp = Huffman_Tree[i].lValue;
@@ -1159,7 +1159,7 @@ int JPEGDecodeDecrypt::generateEncryptedHuffmanTable(DHT dht, BYTE * huffLength,
 void JPEGDecodeDecrypt::generateEncryptedHuffmanTable() {
 	generateEncryptedHuffmanTable(dht[0], yDcHuffLength, yDcHuffCode, yDcHuffVal, dehuffEncrypt[0]);
 	generateEncryptedHuffmanTable(dht[1], yAcHuffLength, yAcHuffCode, yAcHuffVal, dehuffEncrypt[1]);
-	if (sof.numberOfColor == 3) {//YCbCr²ÊÉ«
+	if (sof.numberOfColor == 3) {//YCbCrå½©è‰²
 		generateEncryptedHuffmanTable(dht[2], cDcHuffLength, cDcHuffCode, cDcHuffVal, dehuffEncrypt[2]);
 		generateEncryptedHuffmanTable(dht[3], cAcHuffLength, cAcHuffCode, cAcHuffVal, dehuffEncrypt[3]);
 	}
@@ -1168,13 +1168,13 @@ void JPEGDecodeDecrypt::generateEncryptedHuffmanTable() {
 void JPEGDecode::generateHuffmanTable() {
 	generateHuffmanTable(dht[0], yDcHuffLength, yDcHuffCode, yDcHuffVal, yDcDehuff);
 	generateHuffmanTable(dht[1], yAcHuffLength, yAcHuffCode, yAcHuffVal, yAcDehuff);
-	if (sof.numberOfColor == 3) {//YCbCr²ÊÉ«
+	if (sof.numberOfColor == 3) {//YCbCrå½©è‰²
 		generateHuffmanTable(dht[2], cDcHuffLength, cDcHuffCode, cDcHuffVal, cDcDehuff);
 		generateHuffmanTable(dht[3], cAcHuffLength, cAcHuffCode, cAcHuffVal, cAcDehuff);
 	}
 }
 int JPEGDecode::generateHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BYTE*huffValue, DEHUFF*DEHUFF) {
-	//Éú³É length table
+	//ç”Ÿæˆ length table
 	int htBitTableSum = dht.htBitTableSum();
 	int k = 0, i = 0, j = 1;
 	do {
@@ -1186,7 +1186,7 @@ int JPEGDecode::generateHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BY
 			i++; j = 1;
 		}
 	} while (k < htBitTableSum);
-	//Éú³É code table
+	//ç”Ÿæˆ code table
 	k = 0;
 	WORD code = 0;
 	WORD si = huffLength[0];
@@ -1203,7 +1203,7 @@ int JPEGDecode::generateHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BY
 			si++;
 		} while (huffLength[k] != si);
 	}
-	//ºÏ³ÉË÷Òı±í
+	//åˆæˆç´¢å¼•è¡¨
 	for (int i = 0; i < dht.htBitTableSum(); i++) {
 		WORD temp = huffCode[i];
 		DEHUFF[temp].length = huffLength[i];
@@ -1221,17 +1221,17 @@ int JPEGDecode::readSegments() {
 		case 0xd8: {
 			file.read((char*)&btmp, 1);
 			break;
-		}//Start of Image£¬Í¼Ïñ¿ªÊ¼ 216
+		}//Start of Imageï¼Œå›¾åƒå¼€å§‹ 216
 		case 0xd9: {
 			cout << "FFD9";
-			return 1;//ÎÄ¼ş½áÊø
+			return 1;//æ–‡ä»¶ç»“æŸ
 			break;
 		}//EOI
-		case 0xc0: { //Start of Frame 0£¬Ö¡Í¼Ïñ¿ªÊ¼ 192 end_multi
+		case 0xc0: { //Start of Frame 0ï¼Œå¸§å›¾åƒå¼€å§‹ 192 end_multi
 			sequentialOrProgressive = 0xc0;
 			file.read((char*)&sof, sizeof(SOF));
 			if (sof.numberOfColor == 4) {
-				throw "²»Ö§³ÖCMYKÑÕÉ«Ä£Ê½";
+				throw "ä¸æ”¯æŒCMYKé¢œè‰²æ¨¡å¼";
 			}
 			sofColor = new SOFColour[sof.numberOfColor];
 			for (int i = 0; i < sof.numberOfColor; i++)
@@ -1249,7 +1249,7 @@ int JPEGDecode::readSegments() {
 		case 0xc4: {
 			if (readHuffmanTable() == -2)exit(-2);
 			break;
-		}//Difine Huffman Table£¬¶¨Òå¹ş·òÂü±í 196 multi
+		}//Difine Huffman Tableï¼Œå®šä¹‰å“ˆå¤«æ›¼è¡¨ 196 multi
 		case 0xda: {
 			file.read((char*)&sos, sizeof(SOS));
 			sosColor = new SOSColour[sos.numberOfColor];
@@ -1260,28 +1260,28 @@ int JPEGDecode::readSegments() {
 			sA = file.get();
 			Data_Stream_Begin = true;
 			break;
-		}//Start of Scan£¬É¨Ãè¿ªÊ¼ 218 data
+		}//Start of Scanï¼Œæ‰«æå¼€å§‹ 218 data
 		case 0xdb: {
 			readQuantizationTable();
 			break;
-		}//Define Quantization Table£¬¶¨ÒåÁ¿»¯±í 219 multi
+		}//Define Quantization Tableï¼Œå®šä¹‰é‡åŒ–è¡¨ 219 multi
 		case 0xdd: {
 			file.read((char*)&dri, sizeof(DRI));
 			restartCount = dri.step();
 			restartInterval = true;
-			cout << dec << "DRI¶Î ¼ä¸ô" << restartCount << endl;
+			cout << dec << "DRIæ®µ é—´éš”" << restartCount << endl;
 			break;
-		}//Define Restart Interval£¬¶¨Òå²î·Ö±àÂëÀÛ¼Æ¸´Î»µÄ¼ä¸ô 221 Èç¹ûÃ»ÓĞ±¾±ê¼Ç¶Î£¬»ò¼ä¸ôÖµÎª0Ê±£¬¾Í±íÊ¾²»´æÔÚÖØ¿ªÊ¼¼ä¸ôºÍ±ê¼ÇRST
+		}//Define Restart Intervalï¼Œå®šä¹‰å·®åˆ†ç¼–ç ç´¯è®¡å¤ä½çš„é—´éš” 221 å¦‚æœæ²¡æœ‰æœ¬æ ‡è®°æ®µï¼Œæˆ–é—´éš”å€¼ä¸º0æ—¶ï¼Œå°±è¡¨ç¤ºä¸å­˜åœ¨é‡å¼€å§‹é—´éš”å’Œæ ‡è®°RST
 		case 0xe0: {
 			file.read((char*)&app0, sizeof(APP0));
 			if (app0.length() != 16) {
-				cout << "ÓĞËõÂÔÍ¼" << endl;
-				file.seekg(app0.length() - 16, ios::cur);//ÍòÒ»ÓĞËõÂÔÍ¼¾ÍÌø¹ı
+				cout << "æœ‰ç¼©ç•¥å›¾" << endl;
+				file.seekg(app0.length() - 16, ios::cur);//ä¸‡ä¸€æœ‰ç¼©ç•¥å›¾å°±è·³è¿‡
 				app0.xThumbnail = app0.yThumbnail = 0;
 				app0.lengthH = 0; app0.lengthL = 16;
 			}
 			break;
-		}//Application£¬Ó¦ÓÃ³ÌĞò±£Áô±ê¼Ç0 224
+		}//Applicationï¼Œåº”ç”¨ç¨‹åºä¿ç•™æ ‡è®°0 224
 		 //case 0xdc: break;//DNL 220 seldom_exist
 		default:otherSegments();
 		}
@@ -1292,11 +1292,11 @@ int JPEGDecode::readSegments() {
 int JPEGDecode::readHuffmanTable() {
 	int HT_Bit_Table_Size;
 	BYTE htInfo;
-	BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
+	BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
 	file.read((char*)&lengthH, 1);
 	file.read((char*)&lengthL, 1);
-	WORD length = lengthH * 0x100 + lengthL - 2; //Çó¶Î³¤¶È
+	WORD length = lengthH * 0x100 + lengthL - 2; //æ±‚æ®µé•¿åº¦
 	while (length) {
 		file.read((char*)&htInfo, 1);
 		file.seekg(-1, ios::cur);
@@ -1391,11 +1391,11 @@ int JPEGDecode::readHuffmanTable() {
 }
 int JPEGDecode::readQuantizationTable() {
 	int Dqt_Table_Size;
-	BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
+	BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
 	file.read((char*)&lengthH, 1);
 	file.read((char*)&lengthL, 1);
-	WORD length = lengthH * 0x100 + lengthL - 2; //Çó¶Î³¤¶È
+	WORD length = lengthH * 0x100 + lengthL - 2; //æ±‚æ®µé•¿åº¦
 	while (length) {
 		file.read((char*)&dqt[dqtcount], sizeof(DQT));
 		if (dqt[dqtcount].qtPrecision()) {
@@ -1421,8 +1421,8 @@ int JPEGDecode::preRead()
 	int soi, app0, dqt, sof0, sof2, dht, dri, sos, eoi, dnl, com;
 	soi = app0 = dqt = sof0 = sof2 = dht = dri = sos = eoi = dnl = com = 0;
 	int i = 0;
-	BYTE btmp = 0xff;//±ÈÌØÊı¾İÔİ´æ
-	BYTE btmp_p = 0xff;//É¨ÃèÊ±Ôİ´æÇ°Ò»Î»½øĞĞ±È½Ï
+	BYTE btmp = 0xff;//æ¯”ç‰¹æ•°æ®æš‚å­˜
+	BYTE btmp_p = 0xff;//æ‰«ææ—¶æš‚å­˜å‰ä¸€ä½è¿›è¡Œæ¯”è¾ƒ
 	while (file.good()) {
 		btmp_p = btmp;
 		file.read((char*)&btmp, 1);
@@ -1446,7 +1446,7 @@ int JPEGDecode::preRead()
 		}
 	}
 
-	cout << "\n------------------------Ô¤¶ÁÈ¡ÌáÊ¾--------------------------" << endl;
+	cout << "\n------------------------é¢„è¯»å–æç¤º--------------------------" << endl;
 	if (soi == 0) {
 		throw "error: not JPEG file!";
 	}
@@ -1459,16 +1459,16 @@ int JPEGDecode::preRead()
 	return 0;
 }
 int JPEGDecode::otherSegments() {
-	BYTE lengthH;//¶Î³¤¶È¸ß×Ö½Ú
-	BYTE lengthL;//¶Î³¤¶ÈµÍ×Ö½Ú
+	BYTE lengthH;//æ®µé•¿åº¦é«˜å­—èŠ‚
+	BYTE lengthL;//æ®µé•¿åº¦ä½å­—èŠ‚
 	file.read((char*)&lengthH, 1);
 	file.read((char*)&lengthL, 1);
-	WORD length = lengthH * 0x100 + lengthL - 2;//ÇóĞèÒªÌø¹ıµÄ¶Î³¤¶È
+	WORD length = lengthH * 0x100 + lengthL - 2;//æ±‚éœ€è¦è·³è¿‡çš„æ®µé•¿åº¦
 	file.seekg(length, ios::cur);
 	return 0;
 }
 
-void JPEGDecode::show(fstream& file)//ÁÙÊ±ÏÔÊ¾ÎÄ¼ş
+void JPEGDecode::show(fstream& file)//ä¸´æ—¶æ˜¾ç¤ºæ–‡ä»¶
 {
 	BYTE a;
 	for (int i = 0; i < 400 && file.good(); i++) {
@@ -1480,23 +1480,23 @@ void JPEGDecode::show(fstream& file)//ÁÙÊ±ÏÔÊ¾ÎÄ¼ş
 	cout << endl;
 }
 
-//ÏÔÊ¾Í¼ÏñÖ÷ÒªÊı¾İ
+//æ˜¾ç¤ºå›¾åƒä¸»è¦æ•°æ®
 void JPEGDecode::showFileQtHt() {
 	int j = 0;
 	if (sof.numberOfColor != sos.numberOfColor) {
-		cout << "ÑÕÉ«·ÖÁ¿Ç°ºó²»Ò»ÖÂ£¡" << endl;
+		cout << "é¢œè‰²åˆ†é‡å‰åä¸ä¸€è‡´ï¼" << endl;
 	}
 	cout << dec << "width:" << sof.width() << " height:" << sof.height() << endl;
 
-	cout << "QT:" << dqtcount << "¸ö HT:" << dhtcount << "¸ö" << endl;
-	cout << "ÑÕÉ«Êı£¨3¼´YCbCr£©:" << (WORD)sof.numberOfColor << endl;
+	cout << "QT:" << dqtcount << "ä¸ª HT:" << dhtcount << "ä¸ª" << endl;
+	cout << "é¢œè‰²æ•°ï¼ˆ3å³YCbCrï¼‰:" << (WORD)sof.numberOfColor << endl;
 	for (int i = 0; i < sof.numberOfColor; i++) {
-		cout << "ÑÕÉ«·ÖÁ¿ID:" << (WORD)sofColor[i].colorID << " Ë®Æ½²ÉÑùÒò×Ó" << (WORD)sofColor[i].horizontalSamplingCoefficient() << " ´¹Ö±²ÉÑùÒò×Ó" << (WORD)sofColor[i].verticalSamplingCoefficient() << endl;
-		cout << " Ê¹ÓÃµÄQTºÅ:" << (WORD)sofColor[i].qtUsed;
-		cout << " DCÊ¹ÓÃµÄHTºÅ:" << (WORD)sosColor[i].dcHtTableUsed() << " ACÊ¹ÓÃµÄHTºÅ:" << (WORD)sosColor[i].acHtTableUsed() << endl;
+		cout << "é¢œè‰²åˆ†é‡ID:" << (WORD)sofColor[i].colorID << " æ°´å¹³é‡‡æ ·å› å­" << (WORD)sofColor[i].horizontalSamplingCoefficient() << " å‚ç›´é‡‡æ ·å› å­" << (WORD)sofColor[i].verticalSamplingCoefficient() << endl;
+		cout << " ä½¿ç”¨çš„QTå·:" << (WORD)sofColor[i].qtUsed;
+		cout << " DCä½¿ç”¨çš„HTå·:" << (WORD)sosColor[i].dcHtTableUsed() << " ACä½¿ç”¨çš„HTå·:" << (WORD)sosColor[i].acHtTableUsed() << endl;
 	}
 #ifdef _VCRUNTIME_H
-	cout << "------------------ÁÙÊ±ÏÔÊ¾HT±íÈ¨Öµ--------------------" << endl;
+	cout << "------------------ä¸´æ—¶æ˜¾ç¤ºHTè¡¨æƒå€¼--------------------" << endl;
 
 	cout << "HTnumber:" << (WORD)dht[j].htNumber() << " htType(0=DC 1=AC):" << (WORD)dht[j].htType() << endl;
 	for (int i = 0; i < 16; i++) {
@@ -1578,16 +1578,16 @@ void JPEGDecode::showFileQtHt() {
 	}
 	cout << endl;
 #endif
-	cout << "------------------ÁÙÊ±ÏÔÊ¾QT±í-------------------------" << endl;
+	cout << "------------------ä¸´æ—¶æ˜¾ç¤ºQTè¡¨-------------------------" << endl;
 	j = 0;
-	cout << "QTnumber:" << (WORD)dqt[j].qtNumber() << " QT¾«¶È:" << (WORD)dqt[j].qtPrecision() << endl;
+	cout << "QTnumber:" << (WORD)dqt[j].qtNumber() << " QTç²¾åº¦:" << (WORD)dqt[j].qtPrecision() << endl;
 	for (int i = 0; i < 64 * (dqt[j].qtPrecision() + 1); i++) {
 		cout << dec << (WORD)yqt[i] << ' ';
 		if ((i + 1) % 8 == 0)cout << endl;
 	}
 	cout << endl;
 	j = 1;
-	cout << "QTnumber:" << (WORD)dqt[j].qtNumber() << " QT¾«¶È:" << (WORD)dqt[j].qtPrecision() << endl;
+	cout << "QTnumber:" << (WORD)dqt[j].qtNumber() << " QTç²¾åº¦:" << (WORD)dqt[j].qtPrecision() << endl;
 	for (int i = 0; i < 64 * (dqt[j].qtPrecision() + 1); i++) {
 		cout << dec << (WORD)cqt[i] << ' ';
 		if ((i + 1) % 8 == 0)cout << endl;
@@ -1647,7 +1647,7 @@ void JPEGDecodeDecrypt::decrypt(SWORD(*yMcu)[64], SWORD(*cbMcu)[64], SWORD(*crMc
 }
 /*
 void JPEGDecode::decryptComputeDiff(SWORD(*mcu)[64], int numMCU) {
-//¼ÆËã²î·ÖÖµ
+//è®¡ç®—å·®åˆ†å€¼
 int pred = mcu[0][0];
 for (int i = 1; i < numMCU; i++) {
 int currentDCValue = mcu[i][0];
@@ -1656,7 +1656,7 @@ pred = currentDCValue;
 }
 }
 void JPEGDecode::decryptReComputeDiff(SWORD(*mcu)[64], int numMCU) {
-//²î·ÖÖµ»¹Ô­
+//å·®åˆ†å€¼è¿˜åŸ
 int pred = mcu[0][0];
 for (int i = 1; i < numMCU; i++) {
 pred = mcu[i][0] + pred;
@@ -1665,7 +1665,7 @@ mcu[i][0] = pred;
 }
 */
 void JPEGDecodeDecrypt::decryptBlockScrambling(SWORD(*mcu)[64], int numMCU, ChaoticMap &permutation) {
-	//¿éÖÃÂÒ
+	//å—ç½®ä¹±
 	int *keyStream = new int[numMCU];
 	int *keyStreamPointer = keyStream + numMCU - 1;
 	SWORD *mcuPointer = mcu[numMCU - 1];
@@ -1683,7 +1683,7 @@ void JPEGDecodeDecrypt::decryptBlockScrambling(SWORD(*mcu)[64], int numMCU, Chao
 }
 void JPEGDecodeDecrypt::decryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMap &permutation, ChaoticMap &substitution) {
 	//DC scramble
-	//È¡³öDCÏµÊı
+	//å–å‡ºDCç³»æ•°
 	SWORD *dc = new SWORD[numMCU];
 	SWORD *dcPointer = dc;
 	SWORD *mcuPointer = mcu[0];
@@ -1693,7 +1693,7 @@ void JPEGDecodeDecrypt::decryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 		mcuPointer += 64;
 	}
 
-	//·´À©É¢
+	//åæ‰©æ•£
 	//int pred = 0;
 	char lastBit = 0;
 	char lastNegative = 0;
@@ -1712,12 +1712,12 @@ void JPEGDecodeDecrypt::decryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 			dcBits.push_back(absDC & 1);
 			absDC >>= 1;
 		}
-		//Ê×ÏÈÕ¹¿ª
+		//é¦–å…ˆå±•å¼€
 		char negative = 0;
 		int k = ((long long)((substitution.keySequence())*1.0e+14) & 1);
 		negative = lastNegative ^ scrambledNegative ^ k;
 		lastNegative = scrambledNegative;
-		//½áºÏÀ©É¢£¬½øĞĞDCÖµÈÅÂÒ		
+		//ç»“åˆæ‰©æ•£ï¼Œè¿›è¡ŒDCå€¼æ‰°ä¹±		
 		vector<char>scrambledBits;
 		scrambledBits.reserve(12);
 		vector<char>::iterator iterator;
@@ -1730,7 +1730,7 @@ void JPEGDecodeDecrypt::decryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 		}
 		scrambledBits.push_back(*iterator);
 
-		//Ğ´»Ø¡¢²âÊÔ
+		//å†™å›ã€æµ‹è¯•
 		SWORD scrambled = 0;
 		for (vector<char>::reverse_iterator iterator = scrambledBits.rbegin(); iterator != scrambledBits.rend(); ++iterator) {
 			scrambled <<= 1;
@@ -1741,7 +1741,7 @@ void JPEGDecodeDecrypt::decryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 		dcPointer++;
 	}
 
-	//·´ÖÃÂÒ
+	//åç½®ä¹±
 	int *keyStream = new int[numMCU];
 	int *keyStreamPointer = keyStream + numMCU - 1;
 	dcPointer = dc + numMCU - 1;
@@ -1757,7 +1757,7 @@ void JPEGDecodeDecrypt::decryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 	}
 	delete[] keyStream;
 
-	//Ğ´»Ø
+	//å†™å›
 	dcPointer = dc;
 	mcuPointer = mcu[0];
 	for (int i = 0; i < numMCU; i++) {
@@ -1769,9 +1769,9 @@ void JPEGDecodeDecrypt::decryptDCScramble(SWORD(*mcu)[64], int numMCU, ChaoticMa
 	delete[] dc;
 }
 void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permutation, ChaoticMap &substitution) {
-	//¶ÔACÏµÊı½øĞĞÄÚ²¿ÖÃÂÒ¡¢À©É¢
-	//mcuÄÚ²¿ÖÃÂÒ£º°´ÕÕ±àÂëÊ±RRRRSSSS+¸½¼ÓÖµµÄ×éºÏ
-	//·Ç0ÖµÀ©É¢£º²Î¿¼DCÀ©É¢
+	//å¯¹ACç³»æ•°è¿›è¡Œå†…éƒ¨ç½®ä¹±ã€æ‰©æ•£
+	//mcuå†…éƒ¨ç½®ä¹±ï¼šæŒ‰ç…§ç¼–ç æ—¶RRRRSSSS+é™„åŠ å€¼çš„ç»„åˆ
+	//é0å€¼æ‰©æ•£ï¼šå‚è€ƒDCæ‰©æ•£
 	WORD previous = 0;
 	char previousNegative = 0;
 
@@ -1782,18 +1782,18 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 		int zrlCount = 0;
 		int zeroCount = 0;
 		bool hasZrl = false;
-		BYTE end0Pos;//×îºóÒ»¸ö·Ç0ACÏµÊıÎ»ÖÃ
+		BYTE end0Pos;//æœ€åä¸€ä¸ªé0ACç³»æ•°ä½ç½®
 		for (end0Pos = 63; end0Pos > 0 && mcu[j][end0Pos] == 0; end0Pos--);
 		for (int i = 1; i <= end0Pos; i++) {
-			partData.data[zeroCount] = mcu[j][i];//¼ÇÂ¼Êı¾İ
+			partData.data[zeroCount] = mcu[j][i];//è®°å½•æ•°æ®
 			if (mcu[j][i] == 0) {
-				//Îª0ÏÈ¼ÆÊı£¬ÔÙÅĞ¶ÏZRL
+				//ä¸º0å…ˆè®¡æ•°ï¼Œå†åˆ¤æ–­ZRL
 				zeroCount++;
 				if (zeroCount == 16) {
 					zrlCount++;
 					partData.size = zeroCount;
-					mcuData.push_back(partData);//Ñ¹Õ»
-					partData.clear();//ÖØÖÃ
+					mcuData.push_back(partData);//å‹æ ˆ
+					partData.clear();//é‡ç½®
 					zeroCount = 0;
 					hasZrl = true;
 				}
@@ -1801,21 +1801,21 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 			else {
 				zeroCount++;
 				partData.size = zeroCount;
-				mcuData.push_back(partData);//Ñ¹Õ»
-				partData.clear();//ÖØÖÃ
+				mcuData.push_back(partData);//å‹æ ˆ
+				partData.clear();//é‡ç½®
 				zeroCount = 0;
 			}
 		}
 
-		//·´À©É¢
+		//åæ‰©æ•£
 		vector<PartData>::iterator it;
 		for (it = mcuData.begin(); it != mcuData.end(); ++it) {
 			if (it->isZRL()) {
 			//	++it;
 				continue;
 			}
-			//ACÃ»ÓĞ0Êı¾İ
-			//Ê×ÏÈÈ¡¾ø¶ÔÖµ
+			//ACæ²¡æœ‰0æ•°æ®
+			//é¦–å…ˆå–ç»å¯¹å€¼
 			SWORD data = it->data[it->size - 1];
 			WORD absData = abs(data);
 			char scrambledNegative = data < 0 ? 1 : 0;
@@ -1826,13 +1826,13 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 				mask <<= 1;
 				mask++;
 			}
-			//Õı¸ººÅ´¦Àí
+			//æ­£è´Ÿå·å¤„ç†
 			char negative = 0;
 			char key = (char)((long long)(substitution.keySequence()*1.0e+14) & 1);
 			negative = previousNegative ^ scrambledNegative ^ key;
 			previousNegative = scrambledNegative;
-			//½áºÏÀ©É¢£¬½øĞĞDCÖµÈÅÂÒ
-			mask >>= 1;//Ê×Î»1²»¶¯£¬±£Î»Êı
+			//ç»“åˆæ‰©æ•£ï¼Œè¿›è¡ŒDCå€¼æ‰°ä¹±
+			mask >>= 1;//é¦–ä½1ä¸åŠ¨ï¼Œä¿ä½æ•°
 			if (digit > 2) {
 				int key = (long long)((substitution.keySequence())*1.0e+14) & mask;
 				unsigned temp = absData;
@@ -1846,11 +1846,11 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 				absData = ((key ^ absData ^ (previous & mask)) & mask) | (1 << (digit - 1));
 				previous = temp;
 			}
-			//Ğ´»Ø
+			//å†™å›
 			it->data[it->size - 1] = negative ? -absData : absData;
 		}
 
-		//·´ÖÃÂÒ
+		//åç½®ä¹±
 		int size = (int) mcuData.size();
 		if (size) {
 			vector<int> zrlPos;
@@ -1863,7 +1863,7 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 				keyStream[i] = permutation.keySequence();
 			}
 			if (hasZrl) {
-				//·´ÖÃÂÒZRL
+				//åç½®ä¹±ZRL
 				it = mcuData.end();
 				--it;
 				size = (int) mcuData.size() - 1;
@@ -1878,15 +1878,15 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 					*itDst = partData;
 					keyStreamPointer--;
 				}
-				//È¥³ıZRL
+				//å»é™¤ZRL
 				it = mcuData.begin();
 				int pos = 0;
 				while (it != mcuData.end()) {
 					if (it->isZRL()) {
-						//¼ÇÂ¼×ø±ê É¾³ıÊı¾İ
+						//è®°å½•åæ ‡ åˆ é™¤æ•°æ®
 						zrlPos.push_back(pos);
 						mcuData.erase(it);
-						//ÖØÖÃ
+						//é‡ç½®
 						pos = 0;
 						it = mcuData.begin();
 						continue;
@@ -1895,7 +1895,7 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 					++it;
 				}
 			}
-			//·´ÖÃÂÒ·ÇÁãacÕûÌå
+			//åç½®ä¹±éé›¶acæ•´ä½“
 			it = mcuData.end();
 			size = (int) mcuData.size();
 			for (int i = size - 1; i >= 0; i--) {
@@ -1910,7 +1910,7 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 				keyStreamPointer--;
 			}
 			if (hasZrl) {
-				//¼ÓÈëZRL
+				//åŠ å…¥ZRL
 				PartData zrl;
 				zrl.size = 16;
 				for (vector<int>::reverse_iterator riterator = zrlPos.rbegin();
@@ -1918,11 +1918,11 @@ void JPEGDecodeDecrypt::decryptAC(SWORD(*mcu)[64], int numMCU, ChaoticMap &permu
 					mcuData.insert(mcuData.begin() + *riterator, zrl);
 				}
 			}
-			//·´ÖÃÂÒÊÕÎ²
+			//åç½®ä¹±æ”¶å°¾
 			delete[] keyStream;
 		}
 
-		//Ğ´»Ø
+		//å†™å›
 		int i = 1;
 		for (it = mcuData.begin(); it != mcuData.end(); ++it) {
 			for (int k = 0; k < it->size; k++) {

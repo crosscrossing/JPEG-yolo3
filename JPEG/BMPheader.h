@@ -12,55 +12,55 @@ typedef short SWORD;        //2byte signed
 typedef unsigned int DWORD;//4byte
 typedef int SDWORD;		//4byte signed
 
-#pragma pack(push)//±£´æ¶ÔÆë×´Ì¬
-#pragma pack(2)//Éè¶¨Îª2×Ö½Ú¶ÔÆë
+#pragma pack(push)//ä¿å­˜å¯¹é½çŠ¶æ€
+#pragma pack(2)//è®¾å®šä¸º2å­—èŠ‚å¯¹é½
 typedef struct tagBITMAPFILEHEADER {
-	WORD bfType;//ÎÄ¼şÀàĞÍ£¬±ØĞëÊÇ0x4d42£¬¼´×Ö·û¡°BM¡±  
-	DWORD bfSize;//ÎÄ¼ş´óĞ¡  
-	WORD bfReserved1;//±£Áô×Ö  
-	WORD bfReserved2;//±£Áô×Ö  
-	DWORD bfOffBits;//´ÓÎÄ¼şÍ·µ½Êµ¼ÊÎ»Í¼Êı¾İµÄÆ«ÒÆ×Ö½ÚÊı  
+	WORD bfType;//æ–‡ä»¶ç±»å‹ï¼Œå¿…é¡»æ˜¯0x4d42ï¼Œå³å­—ç¬¦â€œBMâ€  
+	DWORD bfSize;//æ–‡ä»¶å¤§å°  
+	WORD bfReserved1;//ä¿ç•™å­—  
+	WORD bfReserved2;//ä¿ç•™å­—  
+	DWORD bfOffBits;//ä»æ–‡ä»¶å¤´åˆ°å®é™…ä½å›¾æ•°æ®çš„åç§»å­—èŠ‚æ•°  
 	void showBmpHead() {
-		std::cout << "Î»Í¼ÎÄ¼şÍ·:" << std::endl;
-		std::cout << "ÎÄ¼ş´óĞ¡:" << bfSize << std::endl;
-		std::cout << "±£Áô×Ö_1:" << bfReserved1 << std::endl;
-		std::cout << "±£Áô×Ö_2:" << bfReserved2 << std::endl;
-		std::cout << "Êµ¼ÊÎ»Í¼Êı¾İµÄÆ«ÒÆ×Ö½ÚÊı:" << bfOffBits << std::endl << std::endl;
+		std::cout << "ä½å›¾æ–‡ä»¶å¤´:" << std::endl;
+		std::cout << "æ–‡ä»¶å¤§å°:" << bfSize << std::endl;
+		std::cout << "ä¿ç•™å­—_1:" << bfReserved1 << std::endl;
+		std::cout << "ä¿ç•™å­—_2:" << bfReserved2 << std::endl;
+		std::cout << "å®é™…ä½å›¾æ•°æ®çš„åç§»å­—èŠ‚æ•°:" << bfOffBits << std::endl << std::endl;
 	}
-}BITMAPFILEHEADER;//Î»Í¼ÎÄ¼şÍ·¶¨Òå; 
+}BITMAPFILEHEADER;//ä½å›¾æ–‡ä»¶å¤´å®šä¹‰; 
 typedef struct tagBITMAPINFOHEADER {
-	DWORD biSize;//ĞÅÏ¢Í·´óĞ¡  
-	DWORD biWidth;//Í¼Ïñ¿í¶È  
-	DWORD biHeight;//Í¼Ïñ¸ß¶È  
-	WORD biPlanes;//Î»Æ½ÃæÊı£¬±ØĞëÎª1  
-	WORD biBitCount;//Ã¿ÏñËØÎ»Êı  
-	DWORD  biCompression; //Ñ¹ËõÀàĞÍ  
-	DWORD  biSizeImage; //Ñ¹ËõÍ¼Ïñ´óĞ¡×Ö½ÚÊı  
-	DWORD  biXPelsPerMeter; //Ë®Æ½·Ö±æÂÊ  
-	DWORD  biYPelsPerMeter; //´¹Ö±·Ö±æÂÊ  
-	DWORD  biClrUsed; //Î»Í¼Êµ¼ÊÓÃµ½µÄÉ«²ÊÊı  
-	DWORD  biClrImportant; //±¾Î»Í¼ÖĞÖØÒªµÄÉ«²ÊÊı  
+	DWORD biSize;//ä¿¡æ¯å¤´å¤§å°  
+	DWORD biWidth;//å›¾åƒå®½åº¦  
+	DWORD biHeight;//å›¾åƒé«˜åº¦  
+	WORD biPlanes;//ä½å¹³é¢æ•°ï¼Œå¿…é¡»ä¸º1  
+	WORD biBitCount;//æ¯åƒç´ ä½æ•°  
+	DWORD  biCompression; //å‹ç¼©ç±»å‹  
+	DWORD  biSizeImage; //å‹ç¼©å›¾åƒå¤§å°å­—èŠ‚æ•°  
+	DWORD  biXPelsPerMeter; //æ°´å¹³åˆ†è¾¨ç‡  
+	DWORD  biYPelsPerMeter; //å‚ç›´åˆ†è¾¨ç‡  
+	DWORD  biClrUsed; //ä½å›¾å®é™…ç”¨åˆ°çš„è‰²å½©æ•°  
+	DWORD  biClrImportant; //æœ¬ä½å›¾ä¸­é‡è¦çš„è‰²å½©æ•°  
 	void showBmpInforHead() {
-		std::cout << "Î»Í¼ĞÅÏ¢Í·:" << std::endl;
-		std::cout << "½á¹¹ÌåµÄ³¤¶È:" << biSize << std::endl;
-		std::cout << "Î»Í¼¿í:" << biWidth << std::endl;
-		std::cout << "Î»Í¼¸ß:" << biHeight << std::endl;
-		std::cout << "Æ½ÃæÊı:" << biPlanes << std::endl;
-		std::cout << "²ÉÓÃÑÕÉ«Î»Êı:" << biBitCount << std::endl;
-		std::cout << "Ñ¹Ëõ·½Ê½:" << biCompression << std::endl;
-		std::cout << "Êµ¼ÊÎ»Í¼Êı¾İÕ¼ÓÃµÄ×Ö½ÚÊı:" << biSizeImage << std::endl;
-		std::cout << "X·½Ïò·Ö±æÂÊ:" << biXPelsPerMeter << std::endl;
-		std::cout << "y·½Ïò·Ö±æÂÊ:" << biYPelsPerMeter << std::endl;
-		std::cout << "Ê¹ÓÃµÄÑÕÉ«Êı:" << biClrUsed << std::endl;
-		std::cout << "ÖØÒªÑÕÉ«Êı:" << biClrImportant << std::endl << std::endl;
+		std::cout << "ä½å›¾ä¿¡æ¯å¤´:" << std::endl;
+		std::cout << "ç»“æ„ä½“çš„é•¿åº¦:" << biSize << std::endl;
+		std::cout << "ä½å›¾å®½:" << biWidth << std::endl;
+		std::cout << "ä½å›¾é«˜:" << biHeight << std::endl;
+		std::cout << "å¹³é¢æ•°:" << biPlanes << std::endl;
+		std::cout << "é‡‡ç”¨é¢œè‰²ä½æ•°:" << biBitCount << std::endl;
+		std::cout << "å‹ç¼©æ–¹å¼:" << biCompression << std::endl;
+		std::cout << "å®é™…ä½å›¾æ•°æ®å ç”¨çš„å­—èŠ‚æ•°:" << biSizeImage << std::endl;
+		std::cout << "Xæ–¹å‘åˆ†è¾¨ç‡:" << biXPelsPerMeter << std::endl;
+		std::cout << "yæ–¹å‘åˆ†è¾¨ç‡:" << biYPelsPerMeter << std::endl;
+		std::cout << "ä½¿ç”¨çš„é¢œè‰²æ•°:" << biClrUsed << std::endl;
+		std::cout << "é‡è¦é¢œè‰²æ•°:" << biClrImportant << std::endl << std::endl;
 	}
-}BITMAPINFOHEADER; //Î»Í¼ĞÅÏ¢Í·¶¨Òå  
+}BITMAPINFOHEADER; //ä½å›¾ä¿¡æ¯å¤´å®šä¹‰  
 typedef struct tagRGBQUAD {
-	BYTE rgbBlue; //¸ÃÑÕÉ«µÄÀ¶É«·ÖÁ¿  
-	BYTE rgbGreen; //¸ÃÑÕÉ«µÄÂÌÉ«·ÖÁ¿  
-	BYTE rgbRed; //¸ÃÑÕÉ«µÄºìÉ«·ÖÁ¿  
-	BYTE rgbReserved; //±£ÁôÖµ  
-}RGBQUAD;//µ÷É«°å¶¨Òå  
+	BYTE rgbBlue; //è¯¥é¢œè‰²çš„è“è‰²åˆ†é‡  
+	BYTE rgbGreen; //è¯¥é¢œè‰²çš„ç»¿è‰²åˆ†é‡  
+	BYTE rgbRed; //è¯¥é¢œè‰²çš„çº¢è‰²åˆ†é‡  
+	BYTE rgbReserved; //ä¿ç•™å€¼  
+}RGBQUAD;//è°ƒè‰²æ¿å®šä¹‰  
 struct COLOURIMAGEDATA {
 public:
 	BYTE blue;
@@ -70,8 +70,8 @@ public:
 		this->blue = a.blue; this->green = a.green; this->red = a.red;
 		return *this;
 	}
-}; //ÏñËØĞÅÏ¢  
-#pragma pack(pop)//»Ö¸´¶ÔÆë×´Ì¬
+}; //åƒç´ ä¿¡æ¯  
+#pragma pack(pop)//æ¢å¤å¯¹é½çŠ¶æ€
 
 class BMPDecode {
 protected:
@@ -204,23 +204,23 @@ protected:
 		if (srcW <= 0 || srcH <= 0 || dstW <= 0 || dstH <= 0)
 			return false;
 
-		int nSrcWidthStep = srcW;//Ô´Í¼ÏñÃ¿ĞĞËùÕ¼×Ö½ÚÊı
-		int nDstWidthStep = dstW;//Ä¿±êÍ¼ÏñÃ¿ĞĞËùÕ¼×Ö½ÚÊı
+		int nSrcWidthStep = srcW;//æºå›¾åƒæ¯è¡Œæ‰€å å­—èŠ‚æ•°
+		int nDstWidthStep = dstW;//ç›®æ ‡å›¾åƒæ¯è¡Œæ‰€å å­—èŠ‚æ•°
 
 		for (int i = 0; i < dstH; ++i)
 		{
-			//Ô­Í¼ÖĞ¶ÔÓ¦×İ×ø±ê
+			//åŸå›¾ä¸­å¯¹åº”çºµåæ ‡
 			double y = (static_cast<double>(i) + 0.5)*static_cast<double>(srcH) / static_cast<double>(dstH) - 0.5;
-			//Ö¸ÏòÄ¿±êÍ¼ÏñµÄĞĞÊı¾İ
+			//æŒ‡å‘ç›®æ ‡å›¾åƒçš„è¡Œæ•°æ®
 			unsigned char * pDstLine = dstBuf + i * nDstWidthStep;
 			for (int j = 0; j <dstW; ++j)
 			{
-				double x = (static_cast<double>(j) + 0.5)*static_cast<double>(srcW) / static_cast<double>(dstW) - 0.5;//Ô­Í¼ÖĞ¶ÔÓ¦ºá×ø±ê
-																													  //uºÍvÎªx,yµÄĞ¡Êı²¿·Ö,²¢·Å´ó2048±¶ÒÔ¹æ±Ü¸¡µãÔËËã
+				double x = (static_cast<double>(j) + 0.5)*static_cast<double>(srcW) / static_cast<double>(dstW) - 0.5;//åŸå›¾ä¸­å¯¹åº”æ¨ªåæ ‡
+																													  //uå’Œvä¸ºx,yçš„å°æ•°éƒ¨åˆ†,å¹¶æ”¾å¤§2048å€ä»¥è§„é¿æµ®ç‚¹è¿ç®—
 				int u = static_cast<int> ((y - static_cast<int>(y)) * 2048);
 				int v = static_cast<int> ((x - static_cast<int>(x)) * 2048);
 
-				//ix,iy·Ö±ğ´æ´¢x,yµÄÕûÊı²¿·Ö
+				//ix,iyåˆ†åˆ«å­˜å‚¨x,yçš„æ•´æ•°éƒ¨åˆ†
 				int ix = (int)x;
 				int iy = (int)y;
 				pDstLine[j]
@@ -277,7 +277,7 @@ public:
 	BYTE getNumberOfColor() { return info.biBitCount >= 24 ? 3 : 1; }
 	BMPDecode(std::string fileName) {
 		this->fileName = fileName;
-		decode();//Ö´ĞĞ
+		decode();//æ‰§è¡Œ
 	}
 	~BMPDecode() {
 		if (info.biBitCount==24) {
@@ -294,8 +294,8 @@ public:
 class BMPEncode {
 protected:
 	int width,height;
-	int padding;//Ã¿ĞĞ4Î»¶ÔÆë
-	int filePadding;//ÎÄ¼ş4Î»¶ÔÆë
+	int padding;//æ¯è¡Œ4ä½å¯¹é½
+	int filePadding;//æ–‡ä»¶4ä½å¯¹é½
 	std::string fileName;
 	BITMAPFILEHEADER head;
 	BITMAPINFOHEADER info;
@@ -387,7 +387,7 @@ public:
 		info.biXPelsPerMeter = 0;
 		info.biYPelsPerMeter = 0;
 
-		switch (info.biBitCount) {//switchÎªÁËÎ´À´µÄ32bit
+		switch (info.biBitCount) {//switchä¸ºäº†æœªæ¥çš„32bit
 		case 24: {
 			colorImageData = new COLOURIMAGEDATA[width*height];
 			for (int j = 0; j < height; j++) {
