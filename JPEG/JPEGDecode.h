@@ -7,12 +7,12 @@ protected:
 		BYTE length;
 		BYTE value;
 		DEHUFF() { length = 0; value = 0; }
-	};//ÓÃcode×÷ÎªË÷Òı£¬Óöµ½size=0Ìø¹ı
+	};//ç”¨codeä½œä¸ºç´¢å¼•ï¼Œé‡åˆ°size=0è·³è¿‡
 	struct DEHUFFEncrypted {
 		BYTE length;
 		WORD code;
 		DEHUFFEncrypted() { length = 0; code = 0; }
-	};//Ñ­»·¼ìË÷£¬Ğ§ÂÊ½ÏµÍ£¬¹ş·òÂü±í¼ÓÃÜÓÃ
+	};//å¾ªç¯æ£€ç´¢ï¼Œæ•ˆç‡è¾ƒä½ï¼Œå“ˆå¤«æ›¼è¡¨åŠ å¯†ç”¨
 	unsigned char sequentialOrProgressive;
 	std::fstream file;
 	std::string fileName;
@@ -26,10 +26,10 @@ protected:
 	SOS sos;
 	SOSColour*sosColor;
 	BYTE ss, se, sA;
-	BYTE *r, *g, *b, *y;//Í¼ÏñÊı¾İ
+	BYTE *r, *g, *b, *y;//å›¾åƒæ•°æ®
 	int width, height;
 
-	short dqtcount, dhtcount;//qt ht ÓĞ¶àÉÙ¶Î
+	short dqtcount, dhtcount;//qt ht æœ‰å¤šå°‘æ®µ
 	DHT dht[4];
 	BYTE *yDcHuffLength, *cDcHuffLength, *yAcHuffLength, *cAcHuffLength;
 	WORD *yDcHuffCode, *cDcHuffCode, *yAcHuffCode, *cAcHuffCode;
@@ -45,21 +45,21 @@ protected:
 	//	SWORD (*Y_P)[64], (*Cb_P)[64], (*Cr_P)[64];//Progressive
 
 
-	int preRead();//Ô¤¶ÁÈ¡ ²âÊÔÓÃ
-	void show(std::fstream&file);//ÁÙÊ±ÏÔÊ¾ÎÄ¼ş½ÓÏÂÀ´µÄÄÚÈİ
+	int preRead();//é¢„è¯»å– æµ‹è¯•ç”¨
+	void show(std::fstream&file);//ä¸´æ—¶æ˜¾ç¤ºæ–‡ä»¶æ¥ä¸‹æ¥çš„å†…å®¹
 	void showFileQtHt();
-	//ÏÔÊ¾ÎÄ¼şQTºÍHT±í
+	//æ˜¾ç¤ºæ–‡ä»¶QTå’ŒHTè¡¨
 
-	//½âÂëÖ÷º¯Êı
+	//è§£ç ä¸»å‡½æ•°
 	int decodeMain(std::string fileName);
 	virtual int decodeSequentialMain();
 	int decodeProgressiveMain();
 	virtual int decodeDataStream();
 
-	int readSegments();//¶ÁÊı¾İÇ°¸÷¸ö¶Î
-	int readHuffmanTable();//¶ÁÈ¡¹ş·òÂü±í
-	int readQuantizationTable();//¶ÁÈ¡Á¿»¯±í
-	int otherSegments();//ÆäËû¶ÎµÄ´¦Àí
+	int readSegments();//è¯»æ•°æ®å‰å„ä¸ªæ®µ
+	int readHuffmanTable();//è¯»å–å“ˆå¤«æ›¼è¡¨
+	int readQuantizationTable();//è¯»å–é‡åŒ–è¡¨
+	int otherSegments();//å…¶ä»–æ®µçš„å¤„ç†
 	int readDC(DEHUFF * deHuff, SWORD & diff, SWORD & pred, SWORD * result);
 	int readAC(DEHUFF * deHuff, SWORD & diff, SWORD * result);
 	int readDCProgressiveFirstscan(DEHUFF*DEHUFF, SWORD&diff, SWORD&pred, const BYTE Ah, const BYTE Al, SWORD*result);
@@ -72,12 +72,12 @@ protected:
 	SWORD yPred, cbPred, crPred;
 	bool restartInterval;
 	int restartCount;//DRI
-	BYTE byteNew; //½«Òª¶ÁÈ¡µÄbyte
+	BYTE byteNew; //å°†è¦è¯»å–çš„byte
 	SBYTE bytePos;
-	//¶ÁÈ¡byteµ±Ç°µÚ¼¸¸öbit Ó¦¸Ã<=7ÇÒ>=0
-	BYTE readOneBit();//¶ÁÒ»¸öbit ·µ»Ø1ºÍ0
+	//è¯»å–byteå½“å‰ç¬¬å‡ ä¸ªbit åº”è¯¥<=7ä¸”>=0
+	BYTE readOneBit();//è¯»ä¸€ä¸ªbit è¿”å›1å’Œ0
 
-	int generateHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BYTE*huffValue, DEHUFF*DEHUFF);//Éú³É¹ş·òÂü±í
+	int generateHuffmanTable(DHT dht, BYTE*huffLength, WORD*huffCode, BYTE*huffValue, DEHUFF*DEHUFF);//ç”Ÿæˆå“ˆå¤«æ›¼è¡¨
 	void generateHuffmanTable();
 	void convertToRgb(BYTE * rMCU, BYTE * gMCU, BYTE * bMCU, float * yMCU, float * cbMCU, float * crMCU);
 	void idct(SWORD * idct, float * mcu);
@@ -97,7 +97,7 @@ public:
 		decodeMain(fileName);
 	}
 	virtual ~JPEGDecode() {
-		//Í¨ÓÃ²¿·ÖÄÚ´æÇåÀí
+		//é€šç”¨éƒ¨åˆ†å†…å­˜æ¸…ç†
 		delete[] yDcHuffLength; delete[] yDcHuffCode; delete[] yDcHuffVal;
 		delete[] yAcHuffLength; delete[] yAcHuffCode; delete[] yAcHuffVal;
 		delete[] yqt;
@@ -113,14 +113,14 @@ public:
 		else {
 			delete[] y;
 			if (sequentialOrProgressive == 0xc2) {
-				delete[] cAcHuffLength; delete[] cAcHuffCode; delete[] cAcHuffVal;//acÓĞ¶àÕÅ±í£¬Êµ¼ÊÊ¹ÓÃÁË¸Ã±í£¬Ö»ÊÇ±íµÄ±äÁ¿Ãû×ÖÃ»¸Ä
+				delete[] cAcHuffLength; delete[] cAcHuffCode; delete[] cAcHuffVal;//acæœ‰å¤šå¼ è¡¨ï¼Œå®é™…ä½¿ç”¨äº†è¯¥è¡¨ï¼Œåªæ˜¯è¡¨çš„å˜é‡åå­—æ²¡æ”¹
 			}
 		}
-		//ÇåÀíÁ¬ĞøJPEGÄ£¿éÄÚ´æ
+		//æ¸…ç†è¿ç»­JPEGæ¨¡å—å†…å­˜
 		if (sequentialOrProgressive == 0xc0) {
 			delete[] sosColor;
 		}
-		//ÇåÀíÀÛ½øJPEGÄ£¿éÄÚ´æÒÑÔÚ¶ÔÓ¦º¯ÊıÖĞÖ´ĞĞ
+		//æ¸…ç†ç´¯è¿›JPEGæ¨¡å—å†…å­˜å·²åœ¨å¯¹åº”å‡½æ•°ä¸­æ‰§è¡Œ
 	}
 };
 class JPEGDecodeDecrypt : public JPEGDecode {

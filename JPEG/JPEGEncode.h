@@ -11,7 +11,7 @@ protected:
 		BYTE length;
 		WORD code;
 		ENHUFF() { length = 0; code = 0; }
-	};//ÓÃvalue×÷ÎªË÷Òı£¬Óöµ½size=0Ìø¹ı
+	};//ç”¨valueä½œä¸ºç´¢å¼•ï¼Œé‡åˆ°size=0è·³è¿‡
 	APP0 app0;
 	DQT dqt[2];
 	const BYTE*yQtBasicTable;
@@ -28,9 +28,9 @@ protected:
 	SOS sos;
 	SOSColour sosColor[3];
 	DRI dri;
-	int numMCU;//mcu×ÜÊı
+	int numMCU;//mcuæ€»æ•°
 	int width, height;
-	const BYTE *r, *g, *b;//Í¼ÏñÊı¾İ
+	const BYTE *r, *g, *b;//å›¾åƒæ•°æ®
 
 	void encodeMain(std::string fileName, int width, int height, const BYTE *r, const BYTE *g, const BYTE *b);
 	virtual void encode(int scalefactor);
@@ -44,15 +44,15 @@ protected:
 	int writeDC(ENHUFF*ENHUFF, SWORD*afterQT, SWORD&pred);
 	int writeAC(ENHUFF*ENHUFF, SWORD*afterQT);
 
-	BYTE byteNew; //½«Òª¶ÁÈ¡µÄbyte
-	SBYTE bytePos; //¶ÁÈ¡byteµ±Ç°µÚ¼¸¸öbit Ó¦¸Ã<=7ÇÒ>=0
-	void writeOneBit(WORD w);//Ğ´Ò»¸öbit
+	BYTE byteNew; //å°†è¦è¯»å–çš„byte
+	SBYTE bytePos; //è¯»å–byteå½“å‰ç¬¬å‡ ä¸ªbit åº”è¯¥<=7ä¸”>=0
+	void writeOneBit(WORD w);//å†™ä¸€ä¸ªbit
 	void showFileQtHt();
 
 public:
 	JPEGEncode(){}
-	JPEGEncode(std::string fileName,int width,int height, const BYTE *r, const BYTE *g, const BYTE *b) { //Ê¹ÓÃstdÁ¿»¯±àÂëµÄ¹¹Ôìº¯Êı
-		encodeMain(fileName, width, height, r, g, b);//Ö´ĞĞ
+	JPEGEncode(std::string fileName,int width,int height, const BYTE *r, const BYTE *g, const BYTE *b) { //ä½¿ç”¨stdé‡åŒ–ç¼–ç çš„æ„é€ å‡½æ•°
+		encodeMain(fileName, width, height, r, g, b);//æ‰§è¡Œ
 	}
 	virtual ~JPEGEncode() {
 		delete[] yqt;
@@ -79,7 +79,7 @@ protected:
 
 public:
 	JPEGEncodeEncrypt(std::string fileName, int width, int height, const BYTE *r, const BYTE *g, const BYTE *b) : JPEGEncode() {
-		encodeMain(fileName, width, height, r, g, b);//Ö´ĞĞ
+		encodeMain(fileName, width, height, r, g, b);//æ‰§è¡Œ
 	}
 };
 

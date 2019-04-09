@@ -13,14 +13,14 @@ int JPEGDecode::decodeProgressiveMain() {
 	float(*yMCU)[64], (*cbMCU)[64], (*crMCU)[64];
 	BYTE(*rMCU)[64], (*gMCU)[64], (*bMCU)[64];
 
-	if (sofColor[0].samplingCoefficient ^ 17)throw"²ÉÑù·½Ê½Ôİ²»Ö§³Ö";
+	if (sofColor[0].samplingCoefficient ^ 17)throw"é‡‡æ ·æ–¹å¼æš‚ä¸æ”¯æŒ";
 	x_pos_max = sofColor[0].samplingCoefficient & 0x20 ? (int)ceil((float)width / 16) * 2 - 1 : (int)ceil((float)width / 8) - 1;
 	y_pos_max = sofColor[0].samplingCoefficient & 0x02 ? (int)ceil((float)height / 16) * 2 - 1 : (int)ceil((float)height / 8) - 1;
-	numMCU = (x_pos_max + 1)*(y_pos_max + 1);//mcu×ÜÊı
+	numMCU = (x_pos_max + 1)*(y_pos_max + 1);//mcuæ€»æ•°
 	numChroMCU = numMCU;
 	if (sofColor[0].samplingCoefficient & 0x20)numChroMCU /= 2;
 	if (sofColor[0].samplingCoefficient & 0x02)numChroMCU /= 2;
-	//ÎÊÌâ£ºÒ»´ÎÉ¨ÃèÖĞÓĞ¶à¸öÑÕÉ«·ÖÁ¿Ôò°´ÕÕË³Ğò·½Ê½´¦Àí£¬Ö»ÓĞÒ»¸ö·ÖÁ¿Ôò°´Æä×ÔÉíË³Ğò´¦Àí
+	//é—®é¢˜ï¼šä¸€æ¬¡æ‰«æä¸­æœ‰å¤šä¸ªé¢œè‰²åˆ†é‡åˆ™æŒ‰ç…§é¡ºåºæ–¹å¼å¤„ç†ï¼Œåªæœ‰ä¸€ä¸ªåˆ†é‡åˆ™æŒ‰å…¶è‡ªèº«é¡ºåºå¤„ç†
 	yDeQT = new SWORD[numMCU][64];
 	if (sof.numberOfColor == 3) {
 		cbDeQT = new SWORD[numChroMCU][64];
@@ -29,18 +29,18 @@ int JPEGDecode::decodeProgressiveMain() {
 	while (1) {
 		BYTE Ah = sA / 16;
 		BYTE Al = sA % 16;
-		if (!Ah) {//successive approximation high = 0 ËµÃ÷ÊÇfirst scan »òÕßÊÇsprectral selection
-				  //ÅĞ¶Ï·ÖÁ¿Ê¹ÓÃµÄÊÇÄÄ¸ö¹ş·òÂü±í DCÃ»ÎÊÌâ AC2ºÍ3ĞèÒªÅĞ¶Ï
+		if (!Ah) {//successive approximation high = 0 è¯´æ˜æ˜¯first scan æˆ–è€…æ˜¯sprectral selection
+				  //åˆ¤æ–­åˆ†é‡ä½¿ç”¨çš„æ˜¯å“ªä¸ªå“ˆå¤«æ›¼è¡¨ DCæ²¡é—®é¢˜ AC2å’Œ3éœ€è¦åˆ¤æ–­
 			if (ss == 0 && se == 0) {// scan of DC coefficients	
 				generateHuffmanTable(dht[0], yDcHuffLength, yDcHuffCode, yDcHuffVal, yDcDehuff);
-				if (sof.numberOfColor == 3) {//YCbCr²ÊÉ«
+				if (sof.numberOfColor == 3) {//YCbCrå½©è‰²
 					generateHuffmanTable(dht[2], cDcHuffLength, cDcHuffCode, cDcHuffVal, cDcDehuff);
 				}
 				DEHUFF *YDCTableUsed, *CDCTableUsed;
 				YDCTableUsed = sosColor[0].dcHtTableUsed() == 0 ? yDcDehuff : cDcDehuff;
 				if (sof.numberOfColor == 3) {
-					if (sosColor[1].dcHtTableUsed() != sosColor[2].dcHtTableUsed()) throw"sosColor[1]ºÍ[2]²»ÏàÍ¬";
-					CDCTableUsed = sosColor[1].dcHtTableUsed() == 0 ? yDcDehuff : cDcDehuff;//sosColor[1]ºÍ[2]Ó¦¸ÃÏàÍ¬
+					if (sosColor[1].dcHtTableUsed() != sosColor[2].dcHtTableUsed()) throw"sosColor[1]å’Œ[2]ä¸ç›¸åŒ";
+					CDCTableUsed = sosColor[1].dcHtTableUsed() == 0 ? yDcDehuff : cDcDehuff;//sosColor[1]å’Œ[2]åº”è¯¥ç›¸åŒ
 				}
 				for (int i = 0; i < numMCU; i++) {
 					readDCProgressiveFirstscan(YDCTableUsed, yDiff, yPred, Ah, Al, yDeQT[i]);
@@ -64,7 +64,7 @@ int JPEGDecode::decodeProgressiveMain() {
 			else {
 				DEHUFF *dehuff;
 				SWORD *blockPointer;
-				//ACÒ»°ã¸÷¸öÑÕÉ«·Ö¿ª±£´æ
+				//ACä¸€èˆ¬å„ä¸ªé¢œè‰²åˆ†å¼€ä¿å­˜
 				switch (sosColor[0].acHtTableUsed()) {
 				case 0: {
 					generateHuffmanTable(dht[1], yAcHuffLength, yAcHuffCode, yAcHuffVal, yAcDehuff);
@@ -140,7 +140,7 @@ int JPEGDecode::decodeProgressiveMain() {
 				case 3: blockPointer = (SWORD**)crDeQT; EOBRUN = &Cr_EOBRUN; numMCUTemp = numChroMCU; break;
 				}
 
-				//ACÒ»°ã¸÷¸öÑÕÉ«·Ö¿ª±£´æ
+				//ACä¸€èˆ¬å„ä¸ªé¢œè‰²åˆ†å¼€ä¿å­˜
 				switch (sosColor[0].acHtTableUsed()) {
 				case 0: {
 					generateHuffmanTable(dht[1], yAcHuffLength, yAcHuffCode, yAcHuffVal, yAcDehuff);
@@ -474,7 +474,7 @@ int JPEGDecode::decodeProgressiveMain() {
 	}
 	}
 	int MCU_count = 0;
-	int x_remainder, y_remainder;//Ê£Óà¼¸¸öÏñËØ
+	int x_remainder, y_remainder;//å‰©ä½™å‡ ä¸ªåƒç´ 
 	x_remainder = width & 7;
 	y_remainder = height & 7;
 	for (y_pos = 0; y_pos <= y_pos_max; y_pos++) {
@@ -517,10 +517,10 @@ int JPEGDecode::decodeProgressiveMain() {
 
 int JPEGDecode::readDCProgressiveFirstscan(DEHUFF*DEHUFF, SWORD&diff, SWORD&pred, const BYTE Ah, const BYTE Al, SWORD*result) {
 	WORD code;
-	BYTE offset;//µ±Ç°µÄÎ»Êı
+	BYTE offset;//å½“å‰çš„ä½æ•°
 	BYTE value;
-	int point_trans = (int)pow(2, Al);//µã±ä»»
-	//²éÕÒ¹ş·òÂü±í
+	int point_trans = (int)pow(2, Al);//ç‚¹å˜æ¢
+	//æŸ¥æ‰¾å“ˆå¤«æ›¼è¡¨
 	for (offset = 1, code = 0; 1; offset++) {
 		code += readOneBit();
 		if (DEHUFF[code].length == offset) {
@@ -536,7 +536,7 @@ int JPEGDecode::readDCProgressiveFirstscan(DEHUFF*DEHUFF, SWORD&diff, SWORD&pred
 				diff <<= 1;
 				diff += readOneBit();
 			}
-		}//ÕıÊı
+		}//æ­£æ•°
 		else {
 			diff = 1;
 			for (char i = 0; i < (value - 1); i++) {
@@ -544,10 +544,10 @@ int JPEGDecode::readDCProgressiveFirstscan(DEHUFF*DEHUFF, SWORD&diff, SWORD&pred
 				if (!readOneBit())diff++;
 			}
 			diff = -diff;
-		}//¸ºÊı
+		}//è´Ÿæ•°
 	}
 	else diff = 0;
-	if (Al)diff *= point_trans;//¸ù¾İAl×óÒÆ
+	if (Al)diff *= point_trans;//æ ¹æ®Alå·¦ç§»
 	result[0] = diff + pred;
 	pred += diff;
 	return 0;
@@ -558,17 +558,17 @@ int JPEGDecode::readACProgressiveFirstscan(DEHUFF*DEHUFF, const BYTE ss, const B
 			result[k] = 0;
 		}
 		EOBRUN--;
-		return 1;//ÆäÓà²»Ö´ĞĞ
+		return 1;//å…¶ä½™ä¸æ‰§è¡Œ
 	}
 	WORD code;
-	BYTE offset;//µ±Ç°µÄÎ»Êı
+	BYTE offset;//å½“å‰çš„ä½æ•°
 	BYTE value;
-	SWORD digit = 0;//acÎ»Êı
-	char zero_run_length = 0;//Á¬0ÓÎ³Ì±àÂë
-	SWORD ac_value = 0;//½á¹û
-	int point_trans = 1 << Al;// (int)pow(2, Al);//µã±ä»»
+	SWORD digit = 0;//acä½æ•°
+	char zero_run_length = 0;//è¿0æ¸¸ç¨‹ç¼–ç 
+	SWORD ac_value = 0;//ç»“æœ
+	int point_trans = 1 << Al;// (int)pow(2, Al);//ç‚¹å˜æ¢
 	for (unsigned char k = ss; k <= se; k++) {
-		//²éÕÒ¹ş·òÂü±í
+		//æŸ¥æ‰¾å“ˆå¤«æ›¼è¡¨
 		for (offset = 1, code = 0; 1; offset++) {
 			code += readOneBit();
 			if (DEHUFF[code].length == offset) {
@@ -634,12 +634,12 @@ int JPEGDecode::readACProgressiveFirstscan(DEHUFF*DEHUFF, const BYTE ss, const B
 }
 int JPEGDecode::readACProgressiveSubsequentScans(DEHUFF*DEHUFF, const BYTE ss, const BYTE se, const BYTE Ah, const BYTE Al, SWORD(*result)[64], int MCU_sum) {
 	WORD code;
-	BYTE offset;//µ±Ç°µÄÎ»Êı
+	BYTE offset;//å½“å‰çš„ä½æ•°
 	BYTE value;
-	SWORD digit = 0;//acÎ»Êı
-	char zero_run_length = 0;//Á¬0ÓÎ³Ì±àÂë
-	SWORD ac_value = 0;//½á¹û
-	int point_trans = 1 << Al;// (int)pow(2, Al);//µã±ä»»
+	SWORD digit = 0;//acä½æ•°
+	char zero_run_length = 0;//è¿0æ¸¸ç¨‹ç¼–ç 
+	SWORD ac_value = 0;//ç»“æœ
+	int point_trans = 1 << Al;// (int)pow(2, Al);//ç‚¹å˜æ¢
 	int EOBRUN = 0;
 	int cur_MCU = 0;
 	struct LinkList {
@@ -657,7 +657,7 @@ int JPEGDecode::readACProgressiveSubsequentScans(DEHUFF*DEHUFF, const BYTE ss, c
 			//	head = node = (LinkList*)malloc(sizeof(LinkList));
 			head = node = new LinkList;
 
-			//²éÕÒ¹ş·òÂü±í
+			//æŸ¥æ‰¾å“ˆå¤«æ›¼è¡¨
 			for (offset = 1, code = 0; 1; offset++) {
 				code += readOneBit();
 				if (DEHUFF[code].length == offset) {
@@ -744,7 +744,7 @@ int JPEGDecode::readACProgressiveSubsequentScans(DEHUFF*DEHUFF, const BYTE ss, c
 				}
 				else {
 					zero_run_length = value / 16;
-					digit = 1;//ssssÖ»ÄÜÎª1
+					digit = 1;//ssssåªèƒ½ä¸º1
 					//	digit = value % 16;
 					for (char i = zero_run_length; i > 0; i--) {
 						while (result[cur_MCU][k] != 0 && k <= se) {

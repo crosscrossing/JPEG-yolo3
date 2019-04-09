@@ -37,7 +37,7 @@ void testDC() {
 		}
 		count++;
 	}
-	cout << "DC±ä»¯ÂÊ²âÊÔ£º " << (double)error / count << endl;
+	cout << "DCå˜åŒ–çŽ‡æµ‹è¯•ï¼š " << (double)error / count << endl;
 	return;
 }
 void testAC() {
@@ -69,7 +69,7 @@ void testAC() {
 		}
 		count++;
 	}
-	cout << "AC±ä»¯ÂÊ²âÊÔ£º " << (double)error / count << endl;
+	cout << "ACå˜åŒ–çŽ‡æµ‹è¯•ï¼š " << (double)error / count << endl;
 	return;
 }
 
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
 	using namespace std;
 	try {
 		if (argc != 3) {
-			throw "Usage: exe_file  bmp jpg"; // ÓÃ·¨: ¿ÉÖ´ÐÐÎÄ¼þ  Í¼Ïñ
+			throw "Usage: exe_file  bmp jpg"; // ç”¨æ³•: å¯æ‰§è¡Œæ–‡ä»¶  å›¾åƒ
 		}
 #ifdef DETECT
 		{

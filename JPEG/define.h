@@ -1,8 +1,8 @@
 #pragma once
 /**
-* ¹¦ÄÜ£º¼ÓÃÜ¿ØÖÆ
-* ENCRYPT_HUFF¿ØÖÆ¹þ·òÂü±àÂë¼ÓÃÜ
-* ENCRYPTÓÃÓÚÏÖÓÐ¼ÓÃÜ
+* åŠŸèƒ½ï¼šåŠ å¯†æŽ§åˆ¶
+* ENCRYPT_HUFFæŽ§åˆ¶å“ˆå¤«æ›¼ç¼–ç åŠ å¯†
+* ENCRYPTç”¨äºŽçŽ°æœ‰åŠ å¯†
 */
 //#define ENCRYPT_HUFF
 #define ENCRYPT
